@@ -81,4 +81,103 @@ free:
 	- release if end of the heap (? or not...)
 
 * Realloc:
-a memory copy operation.
+a memory copy operation: block are aligned --> copy by block ?
+naive algorithm:
+	- allocate new bloc using malloc
+		- if size doesn't change or extra-available size (due to alignement) ->
+		  do nothing == send back the current pointer (?).
+		- if size is inferior = try to split and have a new chuck.
+		- if next block is empty = fusion them and split the rest after.
+	- copy data from the old to the new block.
+	- free old block
+	- return pointer to the new block
+
+realloc(NULL, s) is valid and should be malloc(s).
+
+PLAN:
+
+* malloc:
+	align
+	find_block
+	extend_heap
+		split_block
+
+* free:
+	get_block / get_metadata
+	is_valid_address
+		fusion
+
+* realloc:
+	get_block / get_metadata
+	is_valid_address
+	malloc
+		no change in some cases.
+	copy_block
+	free
+
+-----------------------------------------------
+
+REQUIREMENTS:
+void	free(void *ptr);
+void	*malloc(size_t size);
+void	*realloc(void *ptr, size_t size);
+void	show_alloc_mem();
+
+BONUS:
+- environment variable malloc uses for debugging
+- show_alloc_mem_ex() -> plus de détails, par exemple un historique des
+  allocations, ou un dump hexa des zones allouées.
+- defragmenter la mémoire libérée
+- gérer l'utilisation multi-thread avec la lib pthread.
+
+ALLOWED FUNCTIONS:
+* mmap(2): map a region/file
+#include <sys/mman.h>
+void *mmap(void *addr, size_t len, int prot, int flags, int fd, off_offset);
+
+	- addr: starting address of the mapping, depending on the setting of the
+	  flag MAP_FIXED = if it's specified,the system will try to place the
+	  mapping at the specified address (removing a mapping if there's already
+	  one), and if it's not starting from address, the system will pick one
+	  address that is not overlapping existing mappings.
+	- len: len
+	- prot: protections
+		PROT_NONE   Pages may not be accessed.
+		PROT_READ   Pages may be read.
+		PROT_WRITE  Pages may be written.
+		PROT_EXEC   Pages may be executed.
+	- flags: specify the type of the mapped object (private = copy on write or
+	  shared)
+		MAP_ANON	Map anonymous memory not associated with any specific file.
+		MAP_FILE	Mapped from a regular file.
+		MAP_FIXED	Do not permit the system to select a different address than the one specified.
+		MAP_HASSEMAPHORE	Notify the kernel that the region may contain
+		semaphores and that special handling may be necessary (In computer
+		science, a semaphore is a variable or abstract data type used to
+		control access to a common resource by multiple processes in a
+		concurrent system such as a multitasking operating system.).
+		MAP_PRIVATE	Modifications are private (copy-on-write).
+		MAP_SHARED	Modifications are shared.
+		MAP_NOCACHE	Pages in this mapping are not retained in the kernel's memory cache.
+success = pointer to the mapped region / failure = MAP_FAILED
+
+* munmap(2): remove a mapping
+#include <sys/mman.h>
+int		munmap(void *addr, size_t len);
+success = 0; failure = -1.
+
+* getpagesize(3): get system page size.
+
+* getrlimit(2): control maximum system resource consumption.
+#include <sys/resource.h>
+int		getrlimit(int resource, struct rlimit *rlp);
+
+struct rlimit {
+	rlim_t  rlim_cur;       /* current (soft) limit */
+	rlim_t  rlim_max;       /* hard limit */
+};
+
+success = 0 / failure = -1.
+
+* write(2)
+libpthread
