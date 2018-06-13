@@ -4,6 +4,14 @@
 # include <unistd.h>
 # include <sys/mman.h>
 
+typedef struct s_block {
+	size_t		size;
+	int			free;
+	char		*data;
+//	s_block		*prev;
+//	s_block		*next;
+}				t_block;
+
 void	*malloc(size_t size);
 void	*ft_malloc(size_t size);
 

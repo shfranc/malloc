@@ -1,11 +1,11 @@
 #include "malloc.h"
 
-void	ft_putchar(char c)
+void			ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
 
-size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(const char *s)
 {
 	char const *temp;
 
@@ -15,7 +15,7 @@ size_t	ft_strlen(const char *s)
 	return (temp - s);
 }
 
-void	ft_putendl(char const *str)
+void			ft_putendl(char const *str)
 {
 	if (str)
 	{
@@ -24,7 +24,7 @@ void	ft_putendl(char const *str)
 	}
 }
 
-void	ft_putstr(char const *str)
+void			ft_putstr(char const *str)
 {
 	if (str)
 		write(1, str, ft_strlen(str));
