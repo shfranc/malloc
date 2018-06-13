@@ -1,0 +1,183 @@
+MALLOC
+======
+
+http://www.inf.udec.cl/~leo/Malloc_tutorial.pdf
+-----------------------------------------------
+
+malloc is not a syscall, just a simple C function.
+mmap (2): map files in memory. annonymous mode to map memory. Open BSD's malloc uses mmap only.
+brk / sbrk : moving the break point betweem mapped and unmapped memory.
+finding a way to orginaze the heap to have an efficient malloc but also free
+and realloc.
+meta-data: information at the beginning ot each chunk. a pointer to the next
+block, a flag to mark free, and the size, at least. this block is before the
+pointer returning by malloc.
+
+* Structures in memory:
+struc { size_t, *next, int flag }
+s->flag is equivalent to *((char*)s + 8 ) (8 is 4 for the size_t and 4 for the
+pointer)
+s.flag is equivalent to *((char*)&s + 8 )
+
+* Aligned pointers:
+pointers are aligned to the integer size, pointer must be
+multiple of 4 (32 bits = 4 bytes).
+--> creating a metadata structure aligned too.
+How to do that: add a preprocessor macro with this trick:
+	n : positive integer
+	n * 4 / 4 --> the nearest smaller multiple of four to n.
+	59 * 4 / 4 = 216 / 4 = 54 --> 54 est le multiple de 4 le plus proche de
+	59.
+	n * 4 / 4 + 4 --> the nearest greater multiple of four to n.
+	don't work with an actual multiple of four...
+multiplying n by four is `n << 2`, and dividing `>> 2`.
+
+* Fit algorithm:
+return the fitting chunk or NULL.
+trick: keep the last visited chunk address.
+if NULL (or first use) --> extend the heap.
+split block if the one free found is wide enough for another chunck
+allocation : insert a new chunk  in the list.
+
+* Malloc principle:
+wrapping the previous steps:
+- aligned the requested size
+- search for free chunk
+	- a chunk is found:
+		 - try to split it (diff of requested size with size of the block >=
+		   metadata + minimal block)
+		 - mark as used (b->free = 0);
+	- extend the heap (note the use of last: pointer to the last visited
+	  chunck so we can access it without going through the list again)
+	last = NULL : initialisation --> the function should work in this
+	context.
+- if failure: silently return NULL.
+
+* calloc:
+do the malloc with the right size (product of 2 operands, check overflow)
+put 0 all over.
+to do: check overflow when multiplying number with size (to do so, divide by
+size and it should be equal to number, if not, it has overflow in between -
+ndombre).
+
+* Free:
+a major issue of malloc: fragmentation
+fusion free chuncks into one bigger (search form the beginning, or keep a
+pointer on the last visited chunk, or double link the list)
+fusion = sum of the size plus the meta data of the second chunk.
+free = identifying the pointer = is it malloc-ed ? where is its metadata
+pointer.
+if the pointer is outside of the heap = not a valid pointer (keep the beginning and the end of the mapped memory)
+how to know if the pointer was malloc-ed --> keep in the meta data a pointer
+to the data.
+when free recieve a pointer: pointer - BLOCK_SIZE = pointer to the meta data
+metadata->pointer == pointer ? it's a valid pointer.
+
+free:
+	- check pointer
+	- access corresponding chunck
+	- mark free
+	- fusion if possible
+	- release if end of the heap (? or not...)
+
+* Realloc:
+a memory copy operation: block are aligned --> copy by block ?
+naive algorithm:
+	- allocate new bloc using malloc
+		- if size doesn't change or extra-available size (due to alignement) ->
+		  do nothing == send back the current pointer (?).
+		- if size is inferior = try to split and have a new chuck.
+		- if next block is empty = fusion them and split the rest after.
+	- copy data from the old to the new block.
+	- free old block
+	- return pointer to the new block
+
+realloc(NULL, s) is valid and should be malloc(s).
+
+PLAN:
+
+* malloc:
+	align
+	find_block
+	extend_heap
+		split_block
+
+* free:
+	get_block / get_metadata
+	is_valid_address
+		fusion
+
+* realloc:
+	get_block / get_metadata
+	is_valid_address
+	malloc
+		no change in some cases.
+	copy_block
+	free
+
+-----------------------------------------------
+
+REQUIREMENTS:
+void	free(void *ptr);
+void	*malloc(size_t size);
+void	*realloc(void *ptr, size_t size);
+void	show_alloc_mem();
+
+BONUS:
+- environment variable malloc uses for debugging
+- show_alloc_mem_ex() -> plus de détails, par exemple un historique des
+  allocations, ou un dump hexa des zones allouées.
+- defragmenter la mémoire libérée
+- gérer l'utilisation multi-thread avec la lib pthread.
+
+ALLOWED FUNCTIONS:
+* mmap(2): map a region/file
+#include <sys/mman.h>
+void *mmap(void *addr, size_t len, int prot, int flags, int fd, off_offset);
+
+	- addr: starting address of the mapping, depending on the setting of the
+	  flag MAP_FIXED = if it's specified,the system will try to place the
+	  mapping at the specified address (removing a mapping if there's already
+	  one), and if it's not starting from address, the system will pick one
+	  address that is not overlapping existing mappings.
+	- len: len
+	- prot: protections
+		PROT_NONE   Pages may not be accessed.
+		PROT_READ   Pages may be read.
+		PROT_WRITE  Pages may be written.
+		PROT_EXEC   Pages may be executed.
+	- flags: specify the type of the mapped object (private = copy on write or
+	  shared)
+		MAP_ANON	Map anonymous memory not associated with any specific file.
+		MAP_FILE	Mapped from a regular file.
+		MAP_FIXED	Do not permit the system to select a different address than the one specified.
+		MAP_HASSEMAPHORE	Notify the kernel that the region may contain
+		semaphores and that special handling may be necessary (In computer
+		science, a semaphore is a variable or abstract data type used to
+		control access to a common resource by multiple processes in a
+		concurrent system such as a multitasking operating system.).
+		MAP_PRIVATE	Modifications are private (copy-on-write).
+		MAP_SHARED	Modifications are shared.
+		MAP_NOCACHE	Pages in this mapping are not retained in the kernel's memory cache.
+success = pointer to the mapped region / failure = MAP_FAILED
+
+* munmap(2): remove a mapping
+#include <sys/mman.h>
+int		munmap(void *addr, size_t len);
+success = 0; failure = -1.
+
+* getpagesize(3): get system page size.
+
+* getrlimit(2): control maximum system resource consumption.
+#include <sys/resource.h>
+int		getrlimit(int resource, struct rlimit *rlp);
+
+struct rlimit {
+	rlim_t  rlim_cur;       /* current (soft) limit */
+	rlim_t  rlim_max;       /* hard limit */
+};
+
+success = 0 / failure = -1.
+
+* write(2)
+libpthread

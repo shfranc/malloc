@@ -1,0 +1,10 @@
+LINKS
+=====
+
+- https://sourceware.org/glibc/wiki/MallocInternals (Florian)
+- https://perso.liris.cnrs.fr/pchampin/enseignement/se/tas.html (Romain, précis
+sur la notion de tas)
+- https://beta.hackndo.com/gestion-de-la-memoire/
+- http://www.inf.udec.cl/~leo/Malloc_tutorial.pdf (le tuto avec du pseudo code
+  et brk/sbrk)
+
