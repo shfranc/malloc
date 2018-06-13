@@ -7,4 +7,4 @@ sur la notion de tas)
 - https://beta.hackndo.com/gestion-de-la-memoire/
 - http://www.inf.udec.cl/~leo/Malloc_tutorial.pdf (le tuto avec du pseudo code
   et brk/sbrk)
-
+- https://en.wikipedia.org/wiki/Data_structure_alignment

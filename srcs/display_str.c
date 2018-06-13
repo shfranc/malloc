@@ -24,6 +24,16 @@ void			ft_putendl(char const *str)
 	}
 }
 
+void			ft_putendl_2(char const *s1, char const *s2)
+{
+	if (s1 && s2)
+	{
+		write(1, s1, ft_strlen(s1));
+		write(1, s2, ft_strlen(s2));
+		write(1, "\n", 1);
+	}
+}
+
 void			ft_putstr(char const *str)
 {
 	if (str)

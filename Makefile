@@ -10,7 +10,7 @@ PATH_OBJS = objs
 PATH_INC = includes
 PATH_LIB = $(shell pwd)
 
-SRCS = $(addprefix $(PATH_SRCS)/, malloc.c display_str.c display_nbr.c )
+SRCS = $(addprefix $(PATH_SRCS)/, malloc.c display_str.c display_nbr.c ft_putaddr.c )
 OBJS = $(SRCS:$(PATH_SRCS)/%.c=$(PATH_OBJS)/%.o)
 INCLUDES = $(addprefix $(PATH_INC)/, malloc.h )
 
@@ -57,6 +57,8 @@ fclean: clean
 	@echo "$(BLUE)clean:$(RESET)\t$(NAME)"
 	@rm -rf $(LIB)
 	@echo "$(BLUE)clean:$(RESET)\t$(LIB)"
+	@rm -rf $(TEST)
+	@echo "$(BLUE)clean:$(RESET)\t$(TEST)"
 
 re: fclean all
 

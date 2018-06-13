@@ -181,3 +181,17 @@ success = 0 / failure = -1.
 
 * write(2)
 libpthread
+
+https://en.wikipedia.org/wiki/Data_structure_alignment
+------------------------------------------------------
+
+padding = (align - (offset mod align)) mod align
+aligned = offset + padding
+        = offset + ((align - (offset mod align)) mod align)
+
+padding = (align - (offset & (align - 1))) & (align - 1)
+        = (-offset & (align - 1))
+		aligned = (offset + (align - 1)) & ~(align - 1)
+		        = (offset + (align - 1)) & -align
+		
+------------------------------------------------------
