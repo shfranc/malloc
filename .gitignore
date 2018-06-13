@@ -1,3 +1,8 @@
-libft_malloc_x86_64_Darwin.so
-objs/*
 libft_malloc.so
+libft_malloc_x86_64_Darwin.so
+test
+buf
+objs/*.o
+srcs/*.swp
+includes/*.swp
+.Makefile.swp

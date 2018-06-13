@@ -8,8 +8,9 @@ LIB = libft_malloc_$(HOSTTYPE).so
 PATH_SRCS = srcs
 PATH_OBJS = objs
 PATH_INC = includes
+PATH_LIB = $(shell pwd)
 
-SRCS = $(addprefix $(PATH_SRCS)/, malloc.c )
+SRCS = $(addprefix $(PATH_SRCS)/, malloc.c display_str.c display_nbr.c )
 OBJS = $(SRCS:$(PATH_SRCS)/%.c=$(PATH_OBJS)/%.o)
 INCLUDES = $(addprefix $(PATH_INC)/, malloc.h )
 
@@ -25,11 +26,17 @@ CYAN = \033[01;36m
 WHITE = \033[01;37m
 RESET = \033[00m
 
+TEST = test
+
 all: $(NAME)
 
 $(NAME): $(LIB)
 	@ln -s $^ $@
 	@echo "$(PINK)link:$(RESET)\t$@"
+
+$(TEST): $(LIB)
+	@$(CC) -o $@ srcs/main.c -I $(PATH_INC) $(LIB)
+	@echo "$(WHITE)test:$(RESET)\t$@"
 
 $(LIB): $(OBJS)
 	@$(CC) -shared $^ -o $@
