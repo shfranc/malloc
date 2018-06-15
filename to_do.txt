@@ -2,8 +2,12 @@ TO DO
 =====
 
 √ print an address
-√ map and create bloc
+√ mmap and create bloc
 √ fusion 2 mmap bloc with successive address (maybe not relevant for bloc creation...)
-. extend heap has to take a heap in parameter
+√ extend heap has to take a heap in parameter
 . split block with a MAX_SIZE
 √ show alloc mem with the 3 heaps
+	. est-ce que le total c'est le total des zones demandées ou des zones effectives = alignées sur 16...?
+√ répartir sur les 3 heaps en fonction de la size
+. la heap large n'utilisera que ft_extend_heap (monter la size au prochain multiple de 4096)
+. extend heap avec un pointer sur le bloc précédent + une size en paramètre pour s'adapter à la  stack large

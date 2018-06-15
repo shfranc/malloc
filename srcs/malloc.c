@@ -12,7 +12,7 @@ void	*ft_malloc(size_t size)
 	return (malloc(size));
 }
 
-void	*ft_malloc_heap(t_heap *heap, size_t size)
+void	*ft_tinysmall_heap(t_heap *heap, size_t size)
 {
 	void		*ret;
 
@@ -38,8 +38,12 @@ void	*malloc(size_t size)
 	if (size == 0)
 		return (NULL);
 	size = ft_align_size(size);
-
-	ret = ft_malloc_heap(&g_handler.tiny, size);
+	if (size <= TINY)
+		ret = ft_tinysmall_heap(&g_handler.tiny, size);
+	else if (size <= LARGE)
+		ret = ft_tinysmall_heap(&g_handler.small, size);
+	else
+		ret = ft_large_heap(&g_handler.large, size);
 
 	// if (!g_handler.tiny.start)
 	// 	ft_extend_heap(&g_handler.tiny);
