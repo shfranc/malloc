@@ -19,5 +19,3 @@ void			ft_putaddr(unsigned long long ptr)
 		ft_putchar(s[i]);
 	write(1, "\n", 1);
 }
-
-

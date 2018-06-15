@@ -1,19 +1,10 @@
 #include "malloc.h"
 
-void	ft_print_blocks(t_block *blocks)
-{
-	t_block	*block;
+// (((((x)-1)>>2)<<2)+4)
 
-	block = blocks;
-//	while (block)
-//	{
-		ft_putnbr_str("size: ", block->size);
-		ft_putstr("next: ");
-		ft_putaddr((unsigned long long)(block->next));
-		ft_putstr("data: ");
-		ft_putaddr((unsigned long long)(block->data));
-		block = block->next;
-//	}
+size_t 		ft_align_size(size_t size)
+{
+	return (((((size) - 1) >> 4) << 4) + 16);
 }
 
 void	*ft_malloc(size_t size)
@@ -23,18 +14,33 @@ void	*ft_malloc(size_t size)
 
 void	*malloc(size_t size)
 {
-	char		*ret;
-	t_block		*block;
+	void		*ret;
 
-	block = (t_block*)mmap(0, sizeof(t_block), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	block->size = size;
-	block->next = NULL;
-	block->free = 0;
 
-	ret = (char*)mmap(0, size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
-	block->data = ret;
+	ret = NULL;
 
-	ft_print_blocks(block);
+	if (size == 0)
+		return (NULL);
+
+	if (!g_heap.start)
+	{
+		ft_extend_heap();
+		ft_print_heap();
+		ft_print_blocks(g_heap.start);
+	}
 	
+	size = ft_align_size(size);
+	
+	if (!(ret = ft_find_block(size)))
+	{
+		ft_extend_heap();
+		ft_print_heap();
+		ft_print_blocks(g_heap.start);
+		ret = ft_find_block(size);
+	}
+
+	ft_print_heap();
+	ft_print_blocks(g_heap.start);
+
 	return ret;
 }

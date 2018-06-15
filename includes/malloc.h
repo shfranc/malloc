@@ -4,7 +4,17 @@
 # include <unistd.h>
 # include <sys/mman.h>
 
-# define BLOCK_SIZE
+# define RED		"\033[01;31m"
+# define GREEN		"\033[01;32m"
+# define YELLOW		"\033[01;33m"
+# define BLUE		"\033[01;34m"
+# define PINK		"\033[01;35m"
+# define CYAN		"\033[01;36m"
+# define WHITE		"\033[01;37m"
+# define RESET		"\033[00m"
+
+# define BLOCK_SIZE	0x20
+# define TINY		0x80
 
 typedef struct s_block {
 	size_t				size; /* 8 bytes */
@@ -14,9 +24,32 @@ typedef struct s_block {
 	void				*data; /* 8 bytes */
 }				t_block;
 
+typedef struct s_heap
+{
+	t_block				*start;
+	t_block				*last;
+	size_t				total;
+	size_t				mapped;
+}				t_heap;
+
+t_heap		g_heap;
+
 void	*malloc(size_t size);
 void	*ft_malloc(size_t size);
 
+/*
+** HEAP
+*/
+void	ft_extend_heap(void);
+void	ft_print_heap(void);
+
+/*
+** BLOCK
+*/
+void	ft_init_block(t_block *block, size_t size);
+void	*ft_find_block(size_t size);
+void	*ft_split_block(t_block *last, size_t size);
+void	ft_print_blocks(t_block *blocks);
 
 /*
 ** DISPLAY
