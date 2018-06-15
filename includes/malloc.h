@@ -36,12 +36,12 @@ typedef struct s_heap
 
 typedef struct s_handler
 {
-	t_heap				*tiny;
-	t_heap				*small;
-	t_heap				*large;
+	t_heap				tiny;
+	t_heap				small;
+	t_heap				large;
 }				t_handler;
 
-t_heap			g_handler;
+t_handler			g_handler;
 
 void	*malloc(size_t size);
 void	*ft_malloc(size_t size);
@@ -49,21 +49,22 @@ void	*ft_malloc(size_t size);
 /*
 ** HEAP
 */
-void	ft_extend_heap(void);
-void	ft_print_heap(void);
+void	ft_extend_heap(t_heap *heap);
+void	ft_print_heap(t_heap *heap);
 
 /*
 ** BLOCK
 */
 void	ft_init_block(t_block *block, size_t size);
-void	*ft_find_block(size_t size);
-void	*ft_split_block(t_block *last, size_t size);
-int		ft_fusion_block(t_block *block1, t_block *block2);
-void	ft_print_blocks(t_block *blocks);
+void	*ft_find_block(t_heap *heap, size_t size);
+void	*ft_split_block(t_heap *heap, t_block *last, size_t size);
+int		ft_fusion_block(t_heap *heap, t_block *block1, t_block *block2);
+void	ft_print_blocks(t_heap *heap);
 
 /*
 ** DISPLAY
 */
+void	show_alloc_mem(void);
 void	ft_putnbr(int n);
 void	ft_putnbr_endl(int n);
 void	ft_putnbr_str(char *str, int n);
@@ -72,5 +73,6 @@ void	ft_putstr(char const *s);
 void	ft_putendl(char const *s);
 void	ft_putendl_2(char const *s1, char const *s2);
 void	ft_putaddr(unsigned long long p);
+void	ft_putaddr_endl(unsigned long long p);
 
 #endif

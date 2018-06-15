@@ -1,0 +1,9 @@
+TO DO
+=====
+
+√ print an address
+√ map and create bloc
+√ fusion 2 mmap bloc with successive address (maybe not relevant for bloc creation...)
+. extend heap has to take a heap in parameter
+. split block with a MAX_SIZE
+√ show alloc mem with the 3 heaps

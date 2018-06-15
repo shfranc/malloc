@@ -12,35 +12,47 @@ void	*ft_malloc(size_t size)
 	return (malloc(size));
 }
 
-void	*malloc(size_t size)
+void	*ft_malloc_heap(t_heap *heap, size_t size)
 {
 	void		*ret;
 
+	if (!heap->start)
+		ft_extend_heap(heap);
+	
+	if (!(ret = ft_find_block(heap, size)))
+	{
+		ft_extend_heap(heap);
+		ret = ft_find_block(heap, size);
+	}
 
-	ret = NULL;
+	ft_print_heap(heap);
+	ft_print_blocks(heap);
 
+	return ret;
+}
+
+void	*malloc(size_t size)
+{
+	void		*ret;
+	
 	if (size == 0)
 		return (NULL);
-
-	if (!g_heap.start)
-	{
-		ft_extend_heap();
-		// ft_print_heap();
-		// ft_print_blocks(g_heap.start);
-	}
-	
 	size = ft_align_size(size);
-	
-	if (!(ret = ft_find_block(size)))
-	{
-		ft_extend_heap();
-		// ft_print_heap();
-		// ft_print_blocks(g_heap.start);
-		ret = ft_find_block(size);
-	}
 
-	// ft_print_heap();
-	ft_print_blocks(g_heap.start);
+	ret = ft_malloc_heap(&g_handler.tiny, size);
+
+	// if (!g_handler.tiny.start)
+	// 	ft_extend_heap(&g_handler.tiny);
+	
+	
+	// if (!(ret = ft_find_block(&g_handler.tiny, size)))
+	// {
+	// 	ft_extend_heap(&g_handler.tiny);
+	// 	ret = ft_find_block(&g_handler.tiny, size);
+	// }
+
+	// ft_print_heap(&g_handler.tiny);
+	// ft_print_blocks(&g_handler.tiny);
 
 	return ret;
 }

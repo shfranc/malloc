@@ -1,19 +1,19 @@
 #include "malloc.h"
 
-void	ft_print_heap(void)
+void	ft_print_heap(t_heap *heap)
 {
 		ft_putendl("---------------------------------");
 		ft_putstr(RED);
 		ft_putstr("HEAP - start: ");
-		ft_putaddr((unsigned long long)(g_heap.start));
+		ft_putaddr_endl((unsigned long long)(heap->start));
 		ft_putstr("HEAP - last: ");
-		ft_putaddr((unsigned long long)(g_heap.last));
-		ft_putnbr_str("HEAP - mapped: ", g_heap.mapped);
-		ft_putnbr_str("HEAP - total: ", g_heap.total);
+		ft_putaddr_endl((unsigned long long)(heap->last));
+		ft_putnbr_str("HEAP - mapped: ", heap->mapped);
+		ft_putnbr_str("HEAP - total: ", heap->total);
 		ft_putendl(RESET);
 }
 
-void	ft_extend_heap(void)
+void	ft_extend_heap(t_heap	*heap)
 {
 	void		*page;
 	t_block		*block;
@@ -23,18 +23,18 @@ void	ft_extend_heap(void)
 	block = (t_block*)page;	
 	ft_init_block(block, getpagesize());
 
-	g_heap.total += getpagesize();
-	g_heap.mapped += BLOCK_SIZE;
+	heap->total += getpagesize();
+	heap->mapped += BLOCK_SIZE;
 	
-	if (g_heap.last)
+	if (heap->last)
 	{
-		if (!ft_fusion_block(g_heap.last, block))
-			g_heap.last->next = block;
+		if (!ft_fusion_block(heap, heap->last, block))
+			heap->last->next = block;
 	}
 	else
 	{
-		g_heap.start = block;
-		g_heap.last = block;
+		heap->start = block;
+		heap->last = block;
 	}
 	
 	return;
