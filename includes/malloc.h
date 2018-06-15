@@ -14,7 +14,9 @@
 # define RESET		"\033[00m"
 
 # define BLOCK_SIZE	0x20
-# define TINY		0x80
+# define TINY		0x80 // 128
+// # define SMALL		0x80
+# define LARGE		0x1000 // 4096
 
 typedef struct s_block {
 	size_t				size; /* 8 bytes */
@@ -32,7 +34,14 @@ typedef struct s_heap
 	size_t				mapped;
 }				t_heap;
 
-t_heap		g_heap;
+typedef struct s_handler
+{
+	t_heap				*tiny;
+	t_heap				*small;
+	t_heap				*large;
+}				t_handler;
+
+t_heap			g_handler;
 
 void	*malloc(size_t size);
 void	*ft_malloc(size_t size);
@@ -49,6 +58,7 @@ void	ft_print_heap(void);
 void	ft_init_block(t_block *block, size_t size);
 void	*ft_find_block(size_t size);
 void	*ft_split_block(t_block *last, size_t size);
+int		ft_fusion_block(t_block *block1, t_block *block2);
 void	ft_print_blocks(t_block *blocks);
 
 /*

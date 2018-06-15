@@ -2,6 +2,7 @@
 
 void	ft_print_heap(void)
 {
+		ft_putendl("---------------------------------");
 		ft_putstr(RED);
 		ft_putstr("HEAP - start: ");
 		ft_putaddr((unsigned long long)(g_heap.start));
@@ -17,7 +18,7 @@ void	ft_extend_heap(void)
 	void		*page;
 	t_block		*block;
 
-	page = mmap(0, getpagesize(), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	page = mmap(0, getpagesize(), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0); // demander à mmap des plages qui se suivent
 	
 	block = (t_block*)page;	
 	ft_init_block(block, getpagesize());
@@ -27,9 +28,7 @@ void	ft_extend_heap(void)
 	
 	if (g_heap.last)
 	{
-		if (g_heap.last->free)
-			g_heap.last->size += block->size; // les plages ne sont pas forcément continues !!
-		else
+		if (!ft_fusion_block(g_heap.last, block))
 			g_heap.last->next = block;
 	}
 	else

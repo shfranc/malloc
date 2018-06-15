@@ -25,8 +25,8 @@ void	*malloc(size_t size)
 	if (!g_heap.start)
 	{
 		ft_extend_heap();
-		ft_print_heap();
-		ft_print_blocks(g_heap.start);
+		// ft_print_heap();
+		// ft_print_blocks(g_heap.start);
 	}
 	
 	size = ft_align_size(size);
@@ -34,12 +34,12 @@ void	*malloc(size_t size)
 	if (!(ret = ft_find_block(size)))
 	{
 		ft_extend_heap();
-		ft_print_heap();
-		ft_print_blocks(g_heap.start);
+		// ft_print_heap();
+		// ft_print_blocks(g_heap.start);
 		ret = ft_find_block(size);
 	}
 
-	ft_print_heap();
+	// ft_print_heap();
 	ft_print_blocks(g_heap.start);
 
 	return ret;

@@ -16,11 +16,11 @@ int		main(void)
 {
 	char *s1;
 	char *s2;
-	// char *s3;
+	char *s3;
 
-	if ((s1 = (char *)ft_malloc(3000)))
+	if ((s1 = (char *)ft_malloc(5000)))
 	{
-		s1 = ft_memset(s1, '1', 11);
+		s1 = ft_memset(s1, '1', 5000);
 		ft_putstr(GREEN);
 		ft_putstr("--> s1: ");
 		ft_putaddr((unsigned long long)(s1));
@@ -42,17 +42,17 @@ int		main(void)
 	else
 		ft_putendl("Unable to malloc");
 
-	// if ((s3 = (char *)ft_malloc(16)))
-	// {
-	// 	s3 = ft_memset(s3, '3', 11);
-	// 	ft_putstr(GREEN);
-	// 	ft_putstr("--> s3: ");
-	// 	ft_putaddr((unsigned long long)(s3));
-	// 	ft_putendl(s3);		
-	// 	ft_putstr(RESET);
-	// }
-	// else
-	// 	ft_putendl("Unable to malloc");
+	if ((s3 = (char *)ft_malloc(16)))
+	{
+		s3 = ft_memset(s3, '3', 11);
+		ft_putstr(GREEN);
+		ft_putstr("--> s3: ");
+		ft_putaddr((unsigned long long)(s3));
+		ft_putendl(s3);
+		ft_putstr(RESET);
+	}
+	else
+		ft_putendl("Unable to malloc");
 
 	return (0);
 }
