@@ -15,8 +15,11 @@
 
 # define BLOCK_SIZE	0x20
 # define TINY		0x80 // 128
-// # define SMALL		0x80
-# define LARGE		0x1000 // 4096
+# define SMALL		0x1000 // 4096
+// # define LARGE		0x1000 // 4096
+
+# define EXTEND_TINY	(128 * TINY + 128 * BLOCK_SIZE)
+# define EXTEND_SMALL	(128 * SMALL + 128 * BLOCK_SIZE)
 
 typedef struct s_block {
 	size_t				size; /* 8 bytes */
@@ -49,7 +52,7 @@ void	*ft_malloc(size_t size);
 /*
 ** HEAP
 */
-void	ft_extend_heap(t_heap *heap);
+void	ft_extend_heap(t_heap *heap, size_t size);
 void	ft_print_heap(t_heap *heap);
 
 /*

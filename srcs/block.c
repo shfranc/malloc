@@ -36,9 +36,9 @@ void	*ft_split_block(t_heap *heap, t_block *last, size_t size)
 
 	block = NULL;
 
-	if ((last->size - size) >= TINY) // trouver un moyen de rendre ça général...
+	if ((last->size - size) >= TINY) // trouver un moyen de rendre ça général... une constante initialisée à chaque appel de malloc avec le size_max correspondant ?
 	{
-		block = (t_block*)(last->data + size); // pas de cast en char* pour ça ??
+		block = (t_block*)(last->data + size);
 		ft_init_block(block, last->size - size);
 		heap->last = block;
 	}

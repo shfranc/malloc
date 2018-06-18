@@ -18,7 +18,7 @@ int		main(void)
 	char *s2;
 	char *s3;
 
-	if ((s1 = (char *)ft_malloc(5000)))
+	if ((s1 = (char *)ft_malloc(5150)))
 	{
 		s1 = ft_memset(s1, '1', 11);
 		ft_putstr(GREEN);
@@ -30,7 +30,7 @@ int		main(void)
 	else
 		ft_putendl("Unable to malloc");
 
-	if ((s2 = (char *)ft_malloc(3000)))
+	if ((s2 = (char *)ft_malloc(5170)))
 	{
 		s2 = ft_memset(s2, '2', 11);
 		ft_putstr(GREEN);
@@ -42,7 +42,7 @@ int		main(void)
 	else
 		ft_putendl("Unable to malloc");
 
-	if ((s3 = (char *)ft_malloc(16)))
+	if ((s3 = (char *)ft_malloc(5190)))
 	{
 		s3 = ft_memset(s3, '3', 11);
 		ft_putstr(GREEN);
