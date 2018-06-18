@@ -17,11 +17,11 @@ void	*ft_tiny_heap(size_t size)
 	void		*ret;
 
 	if (!g_handler.tiny.start)
-		ft_extend_heap(&g_handler.tiny, ft_align_size(EXTEND_TINY, getpagesize()));
+		g_handler.tiny.start = ft_extend_heap(0, ft_align_size(EXTEND_TINY, getpagesize()));
 	
 	if (!(ret = ft_find_block(&g_handler.tiny, size)))
 	{
-		ft_extend_heap(&g_handler.tiny, ft_align_size(EXTEND_TINY, getpagesize()));		
+		g_handler.tiny.last->next = ft_extend_heap(g_handler.tiny.last->data + g_handler.tiny.last->size, ft_align_size(EXTEND_TINY, getpagesize()));		
 		ret = ft_find_block(&g_handler.tiny, size);
 	}
 
@@ -36,11 +36,11 @@ void	*ft_small_heap(size_t size)
 	void		*ret;
 
 	if (!g_handler.small.start)
-		ft_extend_heap(&g_handler.small, ft_align_size(EXTEND_SMALL, getpagesize()));		
+		g_handler.small.start = ft_extend_heap(0, ft_align_size(EXTEND_TINY, getpagesize()));
 	
 	if (!(ret = ft_find_block(&g_handler.small, size)))
 	{
-		ft_extend_heap(&g_handler.small, ft_align_size(EXTEND_SMALL, getpagesize()));		
+		g_handler.small.last->next = ft_extend_heap(g_handler.small.last->data + g_handler.small.last->size, ft_align_size(EXTEND_TINY, getpagesize()));		
 		ret = ft_find_block(&g_handler.small, size);
 	}
 
@@ -52,13 +52,26 @@ void	*ft_small_heap(size_t size)
 
 void	*ft_large_heap(size_t size)
 {
-	ft_extend_heap(&g_handler.large, ft_align_size(size, getpagesize()));
-	
+	if (!g_handler.large.start)
+	{
+		ft_putendl("initialisation");
+		g_handler.large.start = ft_extend_heap(0, ft_align_size(size, getpagesize()));
+		g_handler.large.last = g_handler.large.start;
+		ft_putendl("initialisation");
+	}
+	else
+		g_handler.large.last->next = ft_extend_heap(g_handler.large.last->data + g_handler.large.last->size, ft_align_size(size, getpagesize()));
+	ft_putendl("initialisation");
+
 	g_handler.large.last->free = 0;
+	
+	ft_putendl("initialisation");
+	
 	g_handler.large.mapped += size + BLOCK_SIZE;
 	
 	ft_print_heap(&g_handler.large);
 	ft_print_blocks(&g_handler.large);
+
 	return (g_handler.large.last->data);
 }
 
@@ -66,8 +79,9 @@ void	*malloc(size_t size)
 {
 	void		*ret;
 	
-	// if (size == 0)
+	// if (size == 0) // size == -1 a gerer
 		// return (NULL);
+
 	size = ft_align_size(size, 16);
 	if (size <= TINY)
 		ret = ft_tiny_heap(size);

@@ -52,7 +52,8 @@ void	*ft_malloc(size_t size);
 /*
 ** HEAP
 */
-void	ft_extend_heap(t_heap *heap, size_t size);
+t_block		*ft_extend_heap(void *last, size_t size);
+// void	ft_extend_heap(t_heap *heap, size_t size);
 void	ft_print_heap(t_heap *heap);
 
 /*

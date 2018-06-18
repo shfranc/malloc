@@ -53,9 +53,6 @@ t_block		*ft_extend_heap(void *last, size_t size)
 	
 	block = (t_block*)page;
 	ft_init_block(block, size);
-
-	heap->total += size;
-	heap->mapped += BLOCK_SIZE;
 	
-	return t_block;
+	return block;
 }
