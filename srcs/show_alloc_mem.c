@@ -1,19 +1,20 @@
 #include "malloc.h"
 
-static int		ft_show_heap(t_heap	*heap)
+static int		ft_show_heap(t_block *blocks)
 {
 	t_block	*block;
 	int		total;
-
-	block = heap->start;
+	
+	ft_putaddr_endl((unsigned long long int)blocks);
+	block = blocks;
 	total = 0;
 	while (block)
 	{
 		if (!block->free)
 		{
-			ft_putaddr((unsigned long long)(block->data));
+			ft_putaddr((unsigned long long int)(block->data));
 			ft_putstr(" - ");
-			ft_putaddr((unsigned long long)((char*)block->data + block->size));
+			ft_putaddr((unsigned long long int)((char*)block->data + block->size));
 			ft_putstr(" : ");
 			ft_putnbr(block->size);
 			ft_putendl(" octets");
@@ -21,7 +22,7 @@ static int		ft_show_heap(t_heap	*heap)
 		}
 		block = block->next;
 	}
-	return total;
+	return (total);
 }
 
 
@@ -30,15 +31,10 @@ void			show_alloc_mem(void)
 	int		total;
 
 	ft_putstr("TINY : ");
-	ft_putaddr_endl((unsigned long long)g_handler.tiny.start);
-	total = ft_show_heap(&g_handler.tiny);
-	
+	total = ft_show_heap(g_heap.tiny);
 	ft_putstr("SMALL : ");
-	ft_putaddr_endl((unsigned long long)g_handler.small.start);
-	total += ft_show_heap(&g_handler.small);
-	
+	total += ft_show_heap(g_heap.small);	
 	ft_putstr("LARGE : ");
-	ft_putaddr_endl((unsigned long long)g_handler.large.start);
-	total += ft_show_heap(&g_handler.large);
+	total += ft_show_heap(g_heap.large);
 	ft_putnbr_str("Total : ", total);	
 }

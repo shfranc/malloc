@@ -49,9 +49,27 @@ void	ft_putnbr_endl(int n)
 	ft_putchar('\n');
 }
 
+void	ft_putullnbr_endl(unsigned long long int n)
+{
+	int			len;
+	char		s[16];
+
+	if (n == 0)
+		ft_putchar('0');
+	len = 0;
+	while (n > 0)
+	{
+		s[len++] = n % 10 + 48;
+		n = n / 10;
+	}
+	while (len-- > 0)
+		ft_putchar(s[len]);
+	ft_putchar('\n');
+}
 
 void	ft_putnbr_str(char *str, int n)
 {
 	ft_putstr(str);
+	ft_putchar(' ');
 	ft_putnbr_endl(n);
 }
