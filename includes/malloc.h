@@ -33,8 +33,6 @@ typedef struct s_heap
 {
 	t_block				*start;
 	t_block				*last;
-	size_t				total;
-	size_t				mapped;
 }				t_heap;
 
 typedef struct s_handler
@@ -52,18 +50,24 @@ void	*ft_malloc(size_t size);
 /*
 ** HEAP
 */
+void	ft_init_heap(t_heap *heap, size_t size);
 t_block		*ft_extend_heap(void *last, size_t size);
-// void	ft_extend_heap(t_heap *heap, size_t size);
 void	ft_print_heap(t_heap *heap);
 
 /*
 ** BLOCK
 */
-void	ft_init_block(t_block *block, size_t size);
-void	*ft_find_block(t_heap *heap, size_t size);
-void	*ft_split_block(t_heap *heap, t_block *last, size_t size);
-int		ft_fusion_block(t_heap *heap, t_block *block1, t_block *block2);
-void	ft_print_blocks(t_heap *heap);
+void		ft_init_block(t_block *block, size_t size);
+t_block		*ft_add_block(t_block *block, size_t size);
+t_block		*ft_find_block(t_heap *heap, size_t size);
+t_block		*ft_split_block(t_block *last, size_t size);
+// int			ft_fusion_block(t_block *block1, t_block *block2);
+void		ft_print_blocks(t_heap *heap);
+
+/*
+** TOOLS
+*/
+size_t 		ft_align_size(size_t size, size_t multiple);
 
 /*
 ** DISPLAY

@@ -8,7 +8,18 @@ void	ft_init_block(t_block *block, size_t size)
 	block->data = (char*)block + BLOCK_SIZE;
 }
 
-void	*ft_find_block(t_heap *heap, size_t size)
+t_block		*ft_add_block(t_block *block, size_t size)
+{
+	block->free = 0;
+	if (block->size - size >= TINY)
+	{
+		block->next = ft_split_block(block, size);
+		block->size = size;
+	}
+	return block;
+}
+
+t_block		*ft_find_block(t_heap *heap, size_t size)
 {
 	t_block		*block;
 
@@ -18,52 +29,39 @@ void	*ft_find_block(t_heap *heap, size_t size)
 	{
 		if (block->free && block->size >= size)
 		{
-			block->next = ft_split_block(heap, block, size);
-			if (block->next)
-				block->size = size;
-			block->free = 0;
-			heap->mapped += size + BLOCK_SIZE; 
-			return block->data;
+			return (ft_add_block(block, size));
 		}
 		block = block->next;
 	}
 	return NULL;
 }
 
-void	*ft_split_block(t_heap *heap, t_block *last, size_t size)
+t_block		*ft_split_block(t_block *last, size_t size)
 {
 	t_block		*block;
 
-	block = NULL;
-
-	if ((last->size - size) >= TINY) // trouver un moyen de rendre ça général... une constante initialisée à chaque appel de malloc avec le size_max correspondant ?
-	{
-		block = (t_block*)(last->data + size);
-		ft_init_block(block, last->size - size);
-		heap->last = block;
-	}
-
+	block = (t_block*)(last->data + size);
+	ft_init_block(block, last->size - size);
 	return block;
 }
 
-int		ft_fusion_block(t_heap *heap, t_block *block1, t_block *block2)
-{
-	if (block1->free && block2->free)
-	{
-		ft_putstr("block1->data + block1->size: ");
-		ft_putaddr_endl((unsigned long long)((char*)block1->data + block1->size));
-		ft_putstr("block2: ");
-		ft_putaddr_endl((unsigned long long)block2);
-		if ( (unsigned long long)((char*)block1->data + block1->size) == (unsigned long long)block2 )
-		{
-			ft_putendl("FUSION !!!");
-			block1->size += block2->size;
-			heap->mapped -= BLOCK_SIZE;
-			return 1;
-		}
-	}
-	return 0;
-}
+// int		ft_fusion_block(t_block *block1, t_block *block2)
+// {
+// 	if (block1->free && block2->free)
+// 	{
+// 		ft_putstr("block1->data + block1->size: ");
+// 		ft_putaddr_endl((unsigned long long)((char*)block1->data + block1->size));
+// 		ft_putstr("block2: ");
+// 		ft_putaddr_endl((unsigned long long)block2);
+// 		if ( (unsigned long long)((char*)block1->data + block1->size) == (unsigned long long)block2 )
+// 		{
+// 			ft_putendl("FUSION !!!");
+// 			block1->size += block2->size;
+// 			return 1;
+// 		}
+// 	}
+// 	return 0;
+// }
 
 void	ft_print_blocks(t_heap *heap)
 {
