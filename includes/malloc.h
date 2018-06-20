@@ -27,7 +27,7 @@ typedef struct 		s_block
 
 typedef struct s_heap
 {
-	t_block		*used;
+	t_block		*in_use;
 	t_block		*free;
 }				t_heap;
 

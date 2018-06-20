@@ -20,6 +20,7 @@ void	*malloc(size_t size)
 		g_heap[type].free = ft_extend_free_pool(NULL, type, size);
 
 	block = ft_choose_free_block(type, size);
+	// should we split it ?
 
 	ft_move_block_to_use(type, block);
 	
