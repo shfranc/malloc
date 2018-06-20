@@ -14,30 +14,49 @@
 # define WHITE		"\033[01;37m"
 # define RESET		"\033[00m"
 
-# define BLOCK_SIZE	(8 * 4)
+# define NB_BLOCKS		100
+# define TINY_BLOCK		512
+# define SMALL_BLOCK	4096
 
 typedef struct 		s_block
 {
 	size_t			size;
-	size_t			free;
-	void			*data;
+	struct s_block	*prev;
 	struct s_block	*next;
 }					t_block;
 
 typedef struct s_heap
 {
-	t_block		*tiny;
-	t_block		*small;
-	t_block		*large;
-	t_block		*last;
-	size_t		max;
+	t_block		*used;
+	t_block		*free;
 }				t_heap;
 
-t_heap		g_heap;
+t_heap		g_heap[2];
+
+enum e_heap
+{
+	TINY,
+	SMALL,
+	LARGE
+};
 
 
-void	*malloc(size_t size);
-void	*ft_malloc(size_t size);
+void		*malloc(size_t size);
+void		*ft_malloc(size_t size);
+
+/*
+** POOLS
+*/
+int			ft_choose_pool(size_t size);
+t_block		*ft_choose_free_block(int type, size_t size);
+t_block		*ft_extend_free_pool(void *last, int type, size_t size);
+void		*ft_request_memory(void *last, size_t size);
+
+/*
+** BLOCKS
+*/
+size_t		ft_header_size(void);
+void		ft_move_block_to_use(int type, t_block *block);
 
 /*
 ** TOOLS

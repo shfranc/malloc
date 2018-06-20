@@ -10,7 +10,7 @@ PATH_OBJS = objs
 PATH_INC = includes
 PATH_LIB = $(shell pwd)
 
-SRCS = $(addprefix $(PATH_SRCS)/, malloc.c heap.c block.c show_alloc_mem.c display_str.c display_nbr.c ft_putaddr.c ft_align_size.c )
+SRCS = $(addprefix $(PATH_SRCS)/, malloc.c show_alloc_mem.c free_pool.c block.c display_str.c display_nbr.c ft_putaddr.c ft_align_size.c )
 OBJS = $(SRCS:$(PATH_SRCS)/%.c=$(PATH_OBJS)/%.o)
 INCLUDES = $(addprefix $(PATH_INC)/, malloc.h )
 
