@@ -26,7 +26,11 @@ t_block		*ft_choose_free_block(int type, size_t size)
 
 	if (!block)
 	{
-		last->next = ft_extend_free_pool(last->next + ft_header_size(), type, size); 
+		ft_putendl("extend heap");
+		if (last)
+			last->next = ft_extend_free_pool(last, type, size);
+		else
+			g_heap[type].free = ft_extend_free_pool(NULL, type, size);
 	}
 
 	return (block);
@@ -44,9 +48,9 @@ t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 	else
 		pages = ft_align_size(size + ft_header_size(), getpagesize());
 
-	block = ft_request_memory(last, pages);
+	block = ft_request_memory(last + ft_header_size(), pages);
 	block->size = pages;
-	block->prev = last - ft_header_size();
+	block->prev = last;
 	block->next = NULL;
 
 	return(block);

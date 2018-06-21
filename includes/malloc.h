@@ -66,16 +66,17 @@ size_t 		ft_align_size(size_t size, size_t multiple);
 /*
 ** DISPLAY
 */
-void	show_alloc_mem(void);
-void	ft_putnbr(int n);
-void	ft_putnbr_endl(int n);
-void	ft_putullnbr_endl(unsigned long long int n);
-void	ft_putnbr_str(char *str, int n);
-void	ft_putchar(char c);
-void	ft_putstr(char const *s);
-void	ft_putendl(char const *s);
-void	ft_putendl_2(char const *s1, char const *s2);
-void	ft_putaddr(unsigned long long p);
-void	ft_putaddr_endl(unsigned long long p);
+void		show_alloc_mem(void);
+void		ft_show_heap(t_block *blocks);
+void		ft_putnbr(int n);
+void		ft_putnbr_endl(int n);
+void		ft_putullnbr_endl(unsigned long long int n);
+void		ft_putnbr_str(char *str, int n);
+void		ft_putchar(char c);
+void		ft_putstr(char const *s);
+void		ft_putendl(char const *s);
+void		ft_putendl_2(char const *s1, char const *s2);
+void		ft_putaddr(unsigned long long p);
+void		ft_putaddr_endl(unsigned long long p);
 
 #endif

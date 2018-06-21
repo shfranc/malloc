@@ -1,12 +1,13 @@
 #include "malloc.h"
 
-static void			ft_show_heap(t_block *blocks)
+void			ft_show_heap(t_block *blocks)
 {
 	t_block		*block;
 
 	block = blocks;
 	while (block)
 	{
+		ft_putaddr_endl((unsigned long long)block);
 		ft_putnbr_str("size:", block->size);
 		block = block->next;
 	}
