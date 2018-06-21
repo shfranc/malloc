@@ -7,8 +7,13 @@ void			ft_show_heap(t_block *blocks)
 	block = blocks;
 	while (block)
 	{
-		ft_putaddr_endl((unsigned long long)block);
-		ft_putnbr_str("size:", block->size);
+		ft_putaddr((unsigned long long)block + ft_header_size());
+		ft_putstr(" - ");
+		ft_putaddr((unsigned long long)block + ft_header_size() + block->size);
+		ft_putstr(" : ");
+		ft_putnbr(block->size);
+		ft_putendl(" octets");
+		// total = block->size;
 		block = block->next;
 	}
 }

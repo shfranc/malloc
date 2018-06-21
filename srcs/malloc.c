@@ -10,6 +10,8 @@ void	*malloc(size_t size)
 	unsigned int	type;
 	t_block			*block;
 
+	ft_putendl(BLUE"MALLOC"RESET);
+
 	size = ft_align_size(size, 16);
 	ft_putnbr_str("size:", size);
 
@@ -21,11 +23,13 @@ void	*malloc(size_t size)
 
 	block = ft_choose_free_block(type, size);
 	// should we split it ?
+	if (type == TINY || type == SMALL)
+		block->next = ft_split_block(block, type, size);
 
 	ft_move_block_to_use(type, block);
 	
 	ft_putaddr_endl((unsigned long long)block);
 	ft_putnbr_str("data:", block->size);
 
-	return (NULL);
+	return ((void*)(block + ft_header_size()));
 }

@@ -45,18 +45,21 @@ void		*malloc(size_t size);
 void		*ft_malloc(size_t size);
 
 /*
-** POOLS
+** FREE POOL
 */
 int			ft_choose_pool(size_t size);
 t_block		*ft_choose_free_block(int type, size_t size);
 t_block		*ft_extend_free_pool(void *last, int type, size_t size);
-void		*ft_request_memory(void *last, size_t size);
+t_block		*ft_request_memory(void *last, size_t size);
+void		ft_move_block_to_use(int type, t_block *block);
+// void		ft_delete_block(t_block **start, t_block *block);
+// void		ft_insert_block_top(t_block **start, t_block *block);
 
 /*
 ** BLOCKS
 */
 size_t		ft_header_size(void);
-void		ft_move_block_to_use(int type, t_block *block);
+t_block		*ft_split_block(t_block *block, int type, size_t size);
 
 /*
 ** TOOLS
