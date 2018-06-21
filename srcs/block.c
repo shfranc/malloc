@@ -5,16 +5,34 @@ size_t		ft_header_size(void)
 	return sizeof(t_block);
 }
 
-void	ft_move_block_to_use(int type, t_block *block)
+void	ft_delete_block(t_block **start, t_block *block)
 {
-	// suppr from free list
 	if (block->prev)
 		block->prev->next = block->next;
 	else
-		g_heap[type].free = block->next;
+		*start = block->next;
 
 	if (block->next)
 		block->next->prev = block->prev;
+
+}
+
+void	ft_move_block_to_use(int type, t_block *block)
+{
+	// suppr from free list
+	
+	ft_putendl("--- free");
+	ft_show_heap(g_heap[type].free);
+	ft_putendl("--- free");
+
+	ft_delete_block(&g_heap[type].free, block);
+	// if (block->prev)
+	// 	block->prev->next = block->next;
+	// else
+	// 	g_heap[type].free = block->next;
+
+	// if (block->next)
+	// 	block->next->prev = block->prev;
 
 	ft_putendl("--- free");
 	ft_show_heap(g_heap[type].free);
