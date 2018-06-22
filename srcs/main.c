@@ -22,7 +22,10 @@ int		main(void)
 	// s1 = (char *)ft_malloc(1000);
 	i = 1000;
 	while (i--)
+	{
 		s1 = (char *)ft_malloc(1024);
+		ft_memset(s1, '*', 1024);
+	}
 
 	// i = 100;
 	// while (i--)

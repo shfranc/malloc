@@ -13,33 +13,34 @@ int		ft_choose_pool(size_t size)
 t_block		*ft_choose_free_block(int type, size_t size)
 {
 	t_block		*block;
-	t_block		*last;
+	// t_block		*last;
 
 	block = g_heap[type].free;
 	while (block)
 	{
-		last = block;
+		// last = block;
 		if (block->size >= size)
 			return (block);
 		block = block->next;
 	}
 
-	if (!block)
-	{
-		ft_putendl("extend heap");
-		if (last)
-			last->next = ft_extend_free_pool(last, type, size);
-		else //
-			g_heap[type].free = ft_extend_free_pool(NULL, type, size); // utile... ?
-	}
+	// if (!block) // useless ??
+	// {
+	// 	ft_putendl("extend heap ICI");
+	// 	if (last)
+	// 		last->next = ft_extend_free_pool(last, type, size);
+	// 	else //
+	// 		g_heap[type].free = ft_extend_free_pool(NULL, type, size); // utile... ?
+	// }
 
-	return (block);
+	return (block); // NULL...? 
 }
 
 t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 {
 	t_block 	*block;
 	size_t		pages;
+
 
 	if (type == TINY)
 		pages = ft_align_size(NB_BLOCKS * (TINY_BLOCK + ft_header_size()), getpagesize());
@@ -52,11 +53,12 @@ t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 	block->size = pages - ft_header_size();
 	block->prev = last;
 	block->next = NULL;
+	ft_putnbr_str(YELLOW"extend heap:"RESET, block->size);
 
 	return(block);
 }
 
-t_block	*ft_request_memory(void *last, size_t size)
+t_block		*ft_request_memory(void *last, size_t size)
 {
 	return (mmap(last, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE, -1, 0));
 }
@@ -91,22 +93,6 @@ void		ft_insert_block_top(t_block **start, t_block *block)
 
 void		ft_move_block_to_use(int type, t_block *block)
 {
-	// suppr from free list
-	// ft_putendl("--- free");
-	// ft_show_heap(g_heap[type].free);
-	// ft_putendl("--- free");
-
 	ft_delete_block(&g_heap[type].free, block);
-
-	// ft_putendl("--- free");
-	// ft_show_heap(g_heap[type].free);
-	// ft_putendl("--- free");
-
-	// insert to in_use
 	ft_insert_block_top(&g_heap[type].in_use, block);
-
-	// ft_putendl("--- in use");
-	// ft_show_heap(g_heap[type].in_use);
-	// ft_putendl("--- in use");
-
 }

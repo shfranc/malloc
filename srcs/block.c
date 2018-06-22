@@ -18,12 +18,14 @@ t_block		*ft_split_block(t_block *block, int type, size_t size)
 	min_size = ft_get_min_size(type);
 	if ((block->size - size) >= (min_size + ft_header_size()))
 	{
+		ft_putendl(YELLOW"split block"RESET);
 		new_block = (t_block*)((char*)block + ft_header_size() + size);
 		new_block->size = block->size - size - ft_header_size();
 		new_block->prev = block;
 		new_block->next = block->next;
 		block->next = new_block;
 		block->size = size;
+		ft_putendl(YELLOW"block splitted"RESET);
 		return (new_block);
 	}
 	return (block->next);

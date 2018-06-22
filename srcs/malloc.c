@@ -31,5 +31,5 @@ void	*malloc(size_t size)
 	ft_putaddr_endl((unsigned long long)block);
 	ft_putnbr_str("data:", block->size);
 
-	return ((void*)(block + ft_header_size()));
+	return ((void*)((char*)block + ft_header_size()));
 }
