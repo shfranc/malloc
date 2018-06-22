@@ -24,7 +24,7 @@ t_block		*ft_choose_free_block(int type, size_t size)
 		block = block->next;
 	}
 
-	if (!block) // useless ?? Non, les tous les block son trop petits !
+	if (!block) // useless ?? Non, les tous les block sont0 trop petits !
 	{
 		ft_putendl("extend heap ICI - size not big enough");
 		last->next = ft_extend_free_pool(last, type, size);
@@ -64,4 +64,20 @@ void		ft_move_block_to_use(int type, t_block *block)
 {
 	ft_delete_block(&g_heap[type].free, block);
 	ft_insert_block_top(&g_heap[type].in_use, block);
+}
+
+void	ft_defragmentation(int type)
+{
+	t_block		*block;
+
+	block = g_heap[type].free;
+	while (block)
+	{
+		if (block->next && (char*)block->next == ((char*)block + ft_header_size() + block->size))
+		{
+			ft_fusion_blocks(block, block->next);
+		}
+		else
+			block = block->next;
+	}
 }

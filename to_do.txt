@@ -13,3 +13,7 @@ TO DO
 	√ monter la size au prochain multiple de 4096
 . les heaps doivent contenir au moins 100 blocks (+ 100 headers)
 . split block with a MAX_SIZE
+
+-------------- restart
+. quid du doublement chainé...
+. 

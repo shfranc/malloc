@@ -14,9 +14,9 @@ void	free(void *ptr)
 	
 	// if (block && (type == TINY || type == SMALL))
 	if (block)
+	{
 		defrag = ft_move_block_to_free(type, block);
-
-	if (defrag)
 		ft_defragmentation(type);
+	}
 
 }

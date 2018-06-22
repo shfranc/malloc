@@ -42,8 +42,8 @@ enum e_heap
 
 
 void		*malloc(size_t size);
-void		*ft_malloc(size_t size);
 void		free(void *ptr);
+void		show_alloc_mem(void);
 
 /*
 ** FREE POOL
@@ -53,6 +53,7 @@ t_block		*ft_choose_free_block(int type, size_t size);
 t_block		*ft_extend_free_pool(void *last, int type, size_t size);
 t_block		*ft_request_memory(void *last, size_t size);
 void		ft_move_block_to_use(int type, t_block *block);
+void		ft_defragmentation(int type);
 
 /*
 ** IN USE POOL
@@ -60,7 +61,6 @@ void		ft_move_block_to_use(int type, t_block *block);
 int 		ft_find_used_block(void *ptr, t_block **block);
 t_block		*ft_search_heap(t_block *blocks, void *ptr);
 int			ft_move_block_to_free(int type, t_block *block);
-void		ft_defragmentation(int type);
 
 
 /*
@@ -71,6 +71,7 @@ t_block		*ft_split_block(t_block *block, int type, size_t size);
 void		ft_delete_block(t_block **start, t_block *block);
 void		ft_insert_block_top(t_block **start, t_block *block);
 int			ft_insert_block_addr(t_block **start, t_block *new_block);
+void		ft_fusion_blocks(t_block *block1, t_block *block2);
 
 /*
 ** TOOLS
@@ -81,7 +82,6 @@ size_t 		ft_align_size(size_t size, size_t multiple);
 ** DISPLAY
 */
 void		ft_show_heap(t_block *blocks);
-void		show_alloc_mem(void);
 void		ft_putnbr(int n);
 void		ft_putnbr_endl(int n);
 void		ft_putullnbr_endl(unsigned long long int n);

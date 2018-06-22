@@ -53,14 +53,3 @@ int		ft_move_block_to_free(int type, t_block *block)
 	else
 		return (1);
 }
-
-void	ft_defragmentation(int type)
-{
-	t_block		*block;
-
-	block = g_heap[type].free;
-	while (block)
-	{
-		block = block->next;
-	}
-}

@@ -1,10 +1,5 @@
 #include "malloc.h"
 
-void	*ft_malloc(size_t size)
-{
-	return (malloc(size));
-}
-
 void	*malloc(size_t size)
 {
 	unsigned int	type;
@@ -31,7 +26,7 @@ void	*malloc(size_t size)
 	// ft_putaddr_endl((unsigned long long)block);
 	// ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
 
-	show_alloc_mem();
+	// show_alloc_mem();
 
 	return ((void*)((char*)block + ft_header_size()));
 }
