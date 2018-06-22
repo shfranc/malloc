@@ -13,27 +13,24 @@ int		ft_choose_pool(size_t size)
 t_block		*ft_choose_free_block(int type, size_t size)
 {
 	t_block		*block;
-	// t_block		*last;
+	t_block		*last;
 
 	block = g_heap[type].free;
 	while (block)
 	{
-		// last = block;
+		last = block;
 		if (block->size >= size)
 			return (block);
 		block = block->next;
 	}
 
-	// if (!block) // useless ??
-	// {
-	// 	ft_putendl("extend heap ICI");
-	// 	if (last)
-	// 		last->next = ft_extend_free_pool(last, type, size);
-	// 	else //
-	// 		g_heap[type].free = ft_extend_free_pool(NULL, type, size); // utile... ?
-	// }
+	if (!block) // useless ?? Non, les tous les block son trop petits !
+	{
+		ft_putendl("extend heap ICI - size not big enough");
+		last->next = ft_extend_free_pool(last, type, size);
+	}
 
-	return (block); // NULL...? 
+	return (last->next); // 
 }
 
 t_block		*ft_extend_free_pool(void *last, int type, size_t size)
@@ -61,34 +58,6 @@ t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 t_block		*ft_request_memory(void *last, size_t size)
 {
 	return (mmap(last, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE, -1, 0));
-}
-
-void		ft_delete_block(t_block **start, t_block *block)
-{
-	if (block->prev)
-		block->prev->next = block->next;
-	else
-		*start = block->next;
-
-	if (block->next)
-		block->next->prev = block->prev;
-}
-
-void		ft_insert_block_top(t_block **start, t_block *block)
-{
-	if (!*start)
-	{
-		*start = block;
-		block->next = NULL;
-		block->prev = NULL;
-	}
-	else
-	{
-		(*start)->prev = block;
-		block->next = *start;
-		block->prev = NULL;
-		*start = block;
-	}
 }
 
 void		ft_move_block_to_use(int type, t_block *block)

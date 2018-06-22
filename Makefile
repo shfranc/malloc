@@ -10,7 +10,7 @@ PATH_OBJS = objs
 PATH_INC = includes
 PATH_LIB = $(shell pwd)
 
-SRCS = $(addprefix $(PATH_SRCS)/, malloc.c show_alloc_mem.c free_pool.c block.c display_str.c display_nbr.c ft_putaddr.c ft_align_size.c )
+SRCS = $(addprefix $(PATH_SRCS)/, malloc.c free.c show_alloc_mem.c in_use_pool.c free_pool.c block.c display_str.c display_nbr.c ft_putaddr.c ft_align_size.c )
 OBJS = $(SRCS:$(PATH_SRCS)/%.c=$(PATH_OBJS)/%.o)
 INCLUDES = $(addprefix $(PATH_INC)/, malloc.h )
 
@@ -26,7 +26,9 @@ CYAN = \033[01;36m
 WHITE = \033[01;37m
 RESET = \033[00m
 
-TEST = test
+MAIN = main
+
+TESTS = tests
 
 all: $(NAME)
 
@@ -34,7 +36,7 @@ $(NAME): $(LIB)
 	@ln -s $^ $@
 	@echo "$(PINK)link:$(RESET)\t$@"
 
-$(TEST): $(LIB) srcs/main.c
+$(MAIN): $(LIB) srcs/main.c
 	@$(CC) -o $@ srcs/main.c -I $(PATH_INC) $(LIB)
 	@echo "$(WHITE)test:$(RESET)\t$@"
 
@@ -47,6 +49,22 @@ $(PATH_OBJS)/%.o: $(PATH_SRCS)/%.c $(INCLUDES)
 	@$(CC) $(FLAGS) -c $< -o $@ -I $(PATH_INC)
 	@echo "$(YELLOW)compil:$(RESET)\t$@"
 
+$(TESTS):
+	@$(CC) -o test0 test/test0.c
+	@echo "$(GREEN)compil:$(RESET)\ttest0"
+	@$(CC) -o test1 test/test1.c
+	@echo "$(GREEN)compil:$(RESET)\ttest1"	
+	@$(CC) -o test2 test/test2.c
+	# @echo "$(GREEN)compil:$(RESET)\ttest2"
+	# @$(CC) -o test3 test/test3.c
+	# @echo "$(GREEN)compil:$(RESET)\ttest3"
+	# @$(CC) -o test3bis test/test3bis.c
+	# @echo "$(GREEN)compil:$(RESET)\ttest3bis"
+	# @$(CC) -o test4 test/test4.c
+	# @echo "$(GREEN)compil:$(RESET)\ttest4"
+	# @$(CC) -o test5 test/test5.c
+	# @echo "$(GREEN)compil:$(RESET)\ttest5"	
+
 clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(PATH_OBJS)
@@ -57,8 +75,10 @@ fclean: clean
 	@echo "$(BLUE)clean:$(RESET)\t$(NAME)"
 	@rm -rf $(LIB)
 	@echo "$(BLUE)clean:$(RESET)\t$(LIB)"
-	@rm -rf $(TEST)
-	@echo "$(BLUE)clean:$(RESET)\t$(TEST)"
+	@rm -rf $(MAIN)
+	@echo "$(BLUE)clean:$(RESET)\t$(MAIN)"
+	@rm -rf test0 test1
+	@echo "$(BLUE)clean:$(RESET)\t$(TESTS)"	
 
 re: fclean all
 

@@ -19,25 +19,87 @@ int		main(void)
 	char 	*s3;
 	int		i;
 
+	s1 = (char *)malloc(17);
+	ft_memset(s1, '1', 17);
+
+	s2 = (char *)malloc(17);
+	ft_memset(s2, '2', 17);
+	
+	s3 = (char *)malloc(17);
+	ft_memset(s3, '3', 17);
+
+	show_alloc_mem();
+
+	free(s2);
+	free(s1);
+	free(s3);
+	
+	show_alloc_mem();
+
+	s1 = (char *)malloc(600);
+	ft_memset(s1, '1', 600);
+
+	s2 = (char *)malloc(600);
+	ft_memset(s2, '2', 600);
+	
+	s3 = (char *)malloc(600);
+	ft_memset(s3, '3', 600);
+
+	show_alloc_mem();
+
+	free(s1);
+	free(s2);
+	free(s3);
+	
+	show_alloc_mem();
+
+	s1 = (char *)malloc(10000);
+	ft_memset(s1, '1', 10000);
+
+	s2 = (char *)malloc(10000);
+	ft_memset(s2, '2', 10000);
+	
+	s3 = (char *)malloc(10000);
+	ft_memset(s3, '3', 10000);
+	
+	show_alloc_mem();
+
+
+	free(s3);
+	free(s1);
+	free(s2);	
+	
+	show_alloc_mem();
+
+
 	// s1 = (char *)ft_malloc(1000);
-	i = 1000;
-	while (i--)
-	{
-		s1 = (char *)ft_malloc(1024);
-		ft_memset(s1, '*', 1024);
-	}
+	// i = 1000;
+	// while (i--)
+	// {
+	// 	s1 = (char *)ft_malloc(1024);
+	// 	ft_memset(s1, '*', 1024);
+	// }
 
 	// i = 100;
 	// while (i--)
+	// {
 	// 	s1 = (char *)ft_malloc(TINY_BLOCK);
+	// 	ft_memset(s1, '*', TINY_BLOCK);
+	// }
 
 	// i = 100;
 	// while (i--)
-	// 	s1 = (char *)ft_malloc(SMALL_BLOCK);
+	// {
+	// 	s2 = (char *)ft_malloc(SMALL_BLOCK);
+	// 	ft_memset(s2, '*', SMALL_BLOCK);
+	// }
 
 	// i = 100;
 	// while (i--)
-	// 	s1 = (char *)ft_malloc(SMALL_BLOCK * 2);	
+	// {
+	// 	s3 = (char *)ft_malloc(SMALL_BLOCK * 2 - 100);
+	// 	ft_memset(s3, '*', SMALL_BLOCK * 2 - 100);
+	// }
 
 	// if ((s1 = (char *)ft_malloc(3515)))
 	// {
@@ -75,7 +137,6 @@ int		main(void)
 	// else
 	// 	ft_putendl("Unable to malloc");
 
-	show_alloc_mem();
 
 	return (0);
 }
