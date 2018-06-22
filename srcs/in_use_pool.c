@@ -8,10 +8,10 @@ t_block		*ft_search_heap(t_block *blocks, void *ptr)
 	block = blocks;
 	while (block)
 	{
-		ft_putstr("searching for... ");
-		ft_putaddr_endl((unsigned long long)ptr);
-		ft_putstr("data: ");
-		ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
+		// ft_putstr("searching for... ");
+		// ft_putaddr_endl((unsigned long long)ptr);
+		// ft_putstr("data: ");
+		// ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
 
 		if ((void*)((char*)block + ft_header_size()) == ptr)
 			return (block);

@@ -22,7 +22,10 @@ t_block		*ft_split_block(t_block *block, int type, size_t size)
 		new_block->size = block->size - size - ft_header_size();
 		new_block->prev = block;
 		new_block->next = block->next;
+
 		block->next = new_block;
+		if (block->next)
+			block->next->prev = new_block;
 		block->size = size;
 		ft_putnbr_str(YELLOW"block splitted:"RESET, new_block->size);
 		return (new_block);
@@ -77,14 +80,15 @@ int		ft_insert_block_addr(t_block **start, t_block *new_block)
 		block = *start;
 		while (block)
 		{
-			ft_putendl("looking for a place..");
+			// ft_putendl("looking for a place..");
 			if ((char*)new_block == ((char*)block + ft_header_size() + block->size))
 			{
 				ft_putendl(PINK"add PERFECT place"RESET);
 				new_block->next = block->next;
 				if (block->next)
-					block->next->prev = block;
+					block->next->prev = new_block;
 				block->next = new_block;
+				new_block->prev = block;
 				return (1);
 			}
 			block = block->next;

@@ -33,43 +33,51 @@ int		main(void)
 	free(s2);
 	free(s1);
 	free(s3);
-	
-	show_alloc_mem();
-
-	s1 = (char *)malloc(600);
-	ft_memset(s1, '1', 600);
-
-	s2 = (char *)malloc(600);
-	ft_memset(s2, '2', 600);
-	
-	s3 = (char *)malloc(600);
-	ft_memset(s3, '3', 600);
 
 	show_alloc_mem();
 
-	free(s1);
-	free(s2);
+	s3 = (char *)malloc(17);
+	ft_memset(s3, '3', 17);
+	show_alloc_mem();
+	
 	free(s3);
 	
 	show_alloc_mem();
 
-	s1 = (char *)malloc(10000);
-	ft_memset(s1, '1', 10000);
+	// s1 = (char *)malloc(600);
+	// ft_memset(s1, '1', 600);
 
-	s2 = (char *)malloc(10000);
-	ft_memset(s2, '2', 10000);
+	// s2 = (char *)malloc(600);
+	// ft_memset(s2, '2', 600);
 	
-	s3 = (char *)malloc(10000);
-	ft_memset(s3, '3', 10000);
+	// s3 = (char *)malloc(600);
+	// ft_memset(s3, '3', 600);
+
+	// show_alloc_mem();
+
+	// free(s1);
+	// free(s2);
+	// free(s3);
 	
-	show_alloc_mem();
+	// show_alloc_mem();
+
+	// s1 = (char *)malloc(10000);
+	// ft_memset(s1, '1', 10000);
+
+	// s2 = (char *)malloc(10000);
+	// ft_memset(s2, '2', 10000);
+	
+	// s3 = (char *)malloc(10000);
+	// ft_memset(s3, '3', 10000);
+	
+	// show_alloc_mem();
 
 
-	free(s3);
-	free(s1);
-	free(s2);	
+	// free(s3);
+	// free(s1);
+	// free(s2);	
 	
-	show_alloc_mem();
+	// show_alloc_mem();
 
 
 	// s1 = (char *)ft_malloc(1000);
