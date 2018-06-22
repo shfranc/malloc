@@ -83,3 +83,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean fclean re
+
+	# gcc state.c -o state -I includes -L . -lft_malloc
