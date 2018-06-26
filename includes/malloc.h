@@ -14,7 +14,7 @@
 # define WHITE		"\033[01;37m"
 # define RESET		"\033[00m"
 
-# define NB_BLOCKS		100
+# define NB_BLOCKS		1
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
@@ -40,7 +40,6 @@ enum e_heap
 	LARGE
 };
 
-
 void		*malloc(size_t size);
 void		free(void *ptr);
 void		show_alloc_mem(void);
@@ -48,12 +47,17 @@ void		show_alloc_mem(void);
 /*
 ** FREE POOL
 */
-int			ft_choose_pool(size_t size);
+// int			ft_choose_pool(size_t size);
 t_block		*ft_choose_free_block(int type, size_t size);
 t_block		*ft_extend_free_pool(void *last, int type, size_t size);
 t_block		*ft_request_memory(void *last, size_t size);
 void		ft_move_block_to_use(int type, t_block *block);
+
+/*
+** DEFRAGMENTATION
+*/
 void		ft_defragmentation(int type);
+void		ft_fusion_blocks(t_block *block1, t_block *block2);
 
 /*
 ** IN USE POOL
@@ -71,7 +75,6 @@ t_block		*ft_split_block(t_block *block, int type, size_t size);
 void		ft_delete_block(t_block **start, t_block *block);
 void		ft_insert_block_top(t_block **start, t_block *block);
 int			ft_insert_block_addr(t_block **start, t_block *new_block);
-void		ft_fusion_blocks(t_block *block1, t_block *block2);
 
 /*
 ** TOOLS

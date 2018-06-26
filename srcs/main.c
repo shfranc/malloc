@@ -32,17 +32,17 @@ int		main(void)
 
 	free(s2);
 	free(s1);
-	free(s3);
+	// free(s3);
 
 	show_alloc_mem();
 
-	s3 = (char *)malloc(17);
-	ft_memset(s3, '3', 17);
-	show_alloc_mem();
+	// s3 = (char *)malloc(17);
+	// ft_memset(s3, '3', 17);
+	// show_alloc_mem();
 	
-	free(s3);
+	// free(s3);
 	
-	show_alloc_mem();
+	// show_alloc_mem();
 
 	// s1 = (char *)malloc(600);
 	// ft_memset(s1, '1', 600);

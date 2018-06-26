@@ -15,5 +15,8 @@ TO DO
 . split block with a MAX_SIZE
 
 -------------- restart
-. quid du doublement chainé...
-. 
+FREE
+. quid du doublement chainé... --> affichage donc on garde ?
+. affichage adresse croissante --> la pile "in use" doit être triée par adresse.
+. free des LARGE
+REALLOC

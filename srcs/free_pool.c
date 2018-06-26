@@ -1,15 +1,5 @@
 #include "malloc.h"
 
-int		ft_choose_pool(size_t size)
-{
-	if (size <= TINY_BLOCK)
-		return (TINY);
-	else if (size <= SMALL_BLOCK)
-		return (SMALL);
-	else
-		return (LARGE);
-}
-
 t_block		*ft_choose_free_block(int type, size_t size)
 {
 	t_block		*block;
@@ -66,18 +56,3 @@ void		ft_move_block_to_use(int type, t_block *block)
 	ft_insert_block_top(&g_heap[type].in_use, block);
 }
 
-void	ft_defragmentation(int type)
-{
-	t_block		*block;
-
-	block = g_heap[type].free;
-	while (block)
-	{
-		if (block->next && (char*)block->next == ((char*)block + ft_header_size() + block->size))
-		{
-			ft_fusion_blocks(block, block->next);
-		}
-		else
-			block = block->next;
-	}
-}

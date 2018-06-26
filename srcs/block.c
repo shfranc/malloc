@@ -34,15 +34,6 @@ t_block		*ft_split_block(t_block *block, int type, size_t size)
 	return (block->next);
 }
 
-void		ft_fusion_blocks(t_block *block1, t_block *block2)
-{
-	ft_putendl(WHITE"FUSION !!"RESET);
-	block1->size += block2->size + ft_header_size();
-	block1->next = block2->next;
-	if (block2->next)
-		block2->next->prev = block1;
-}
-
 void		ft_delete_block(t_block **start, t_block *block)
 {
 	if (block->prev)
@@ -98,6 +89,7 @@ int		ft_insert_block_addr(t_block **start, t_block *new_block)
 					block->next->prev = new_block;
 				block->next = new_block;
 				new_block->prev = block;
+				// ft_fusion_blocks(block, new_block);
 				return (1);
 			}
 			block = block->next;

@@ -1,5 +1,15 @@
 #include "malloc.h"
 
+static int		ft_choose_pool(size_t size)
+{
+	if (size <= TINY_BLOCK)
+		return (TINY);
+	else if (size <= SMALL_BLOCK)
+		return (SMALL);
+	else
+		return (LARGE);
+}
+
 void	*malloc(size_t size)
 {
 	unsigned int	type;
