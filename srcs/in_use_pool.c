@@ -45,11 +45,14 @@ int 	ft_find_used_block(void *ptr, t_block **block)
 int		ft_move_block_to_free(int type, t_block *block)
 {
 	ft_delete_block(&g_heap[type].in_use, block);
-	if (!ft_insert_block_addr(&g_heap[type].free, block))
-	{
-		ft_insert_block_top(&g_heap[type].free, block);
-		return (0);
-	}
-	else
-		return (1);
+
+	ft_insert_and_fusion_block(&g_heap[type].in_use, block);
+
+	// if (!ft_insert_block_addr(&g_heap[type].free, block))
+	// {
+	// 	ft_insert_block_top_defrag(&g_heap[type].free, block);
+	// 	return (0);
+	// }
+	// else
+	// 	return (1);
 }

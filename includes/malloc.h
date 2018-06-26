@@ -56,7 +56,7 @@ void		ft_move_block_to_use(int type, t_block *block);
 /*
 ** DEFRAGMENTATION
 */
-void		ft_defragmentation(int type);
+// void		ft_defragmentation(int type);
 void		ft_fusion_blocks(t_block *block1, t_block *block2);
 
 /*
@@ -74,6 +74,7 @@ size_t		ft_header_size(void);
 t_block		*ft_split_block(t_block *block, int type, size_t size);
 void		ft_delete_block(t_block **start, t_block *block);
 void		ft_insert_block_top(t_block **start, t_block *block);
+void		ft_insert_block_top_defrag(t_block **start, t_block *block);
 int			ft_insert_block_addr(t_block **start, t_block *new_block);
 
 /*
