@@ -19,8 +19,18 @@ int		main(void)
 	char 	*s3;
 	int		i;
 
-	// s1 = (char *)malloc(17);
-	// ft_memset(s1, '1', 17);
+	// i = 0;
+	// s1 = (char *)malloc(1);
+	// while (i++ < 100)
+	// {
+	// 	ft_putnbr(i);
+	// 	s1 = (char *)realloc(s1, i * 12);
+	// 	ft_memset(s1, '*', i * 12);
+	// 	// free(s1);
+	// }
+
+	s1 = (char *)malloc(4064);
+	ft_memset(s1, '1', 4064);
 
 	// s2 = (char *)malloc(17);
 	// ft_memset(s2, '2', 17);
@@ -28,13 +38,13 @@ int		main(void)
 	// s3 = (char *)malloc(17);
 	// ft_memset(s3, '3', 17);
 
-	// show_alloc_mem();
+	show_alloc_mem();
 
 	// free(s2);
-	// free(s1);
+	free(s1);
 	// free(s3);
 
-	// show_alloc_mem();
+	show_alloc_mem();
 
 	// s3 = (char *)malloc(17);
 	// ft_memset(s3, '3', 17);
@@ -44,19 +54,19 @@ int		main(void)
 	
 	// show_alloc_mem();
 
-	s3 = (char *)malloc(17);
-	ft_putaddr_endl((unsigned long long)s3);
+	// s3 = (char *)malloc(17);
+	// ft_putaddr_endl((unsigned long long)s3);
 
-	ft_memset(s3, '3', 17);	
-	show_alloc_mem();
+	// ft_memset(s3, '3', 17);	
+	// show_alloc_mem();
 
-	s3 = (char *)realloc(s3, 180);
-	ft_putaddr_endl((unsigned long long)s3);
-	show_alloc_mem();
-	ft_memset(s3, '3', 180);
+	// s3 = (char *)realloc(s3, 180);
+	// ft_putaddr_endl((unsigned long long)s3);
+	// show_alloc_mem();
+	// ft_memset(s3, '3', 180);
 
-	free(s3);
-	show_alloc_mem();
+	// free(s3);
+	// show_alloc_mem();
 
 	// s1 = (char *)malloc(600);
 	// ft_memset(s1, '1', 600);

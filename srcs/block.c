@@ -77,7 +77,7 @@ int		ft_insert_block_addr(t_block **start, t_block *new_block)
 		block = *start;
 		while (block)
 		{
-			ft_putendl("looking for a place..");
+			// ft_putendl("looking for a place..");
 			if ((char*)new_block == ((char*)block + ft_header_size() + block->size))
 			{
 				ft_putendl(PINK"add PERFECT place"RESET);

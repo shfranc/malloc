@@ -41,6 +41,7 @@ enum e_heap
 };
 
 void		*malloc(size_t size);
+void		*calloc(size_t count, size_t size);
 void		free(void *ptr);
 void		*realloc(void *ptr, size_t size);
 void		show_alloc_mem(void);
@@ -65,7 +66,7 @@ void		ft_fusion_blocks(t_block *block1, t_block *block2);
 */
 int 		ft_find_used_block(void *ptr, t_block **block);
 t_block		*ft_search_heap(t_block *blocks, void *ptr);
-int			ft_move_block_to_free(int type, t_block *block);
+void		ft_move_block_to_free(int type, t_block *block);
 
 
 /*

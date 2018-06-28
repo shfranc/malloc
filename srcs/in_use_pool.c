@@ -42,15 +42,10 @@ int 	ft_find_used_block(void *ptr, t_block **block)
 	return (-1);
 }
 
-int		ft_move_block_to_free(int type, t_block *block)
+void	ft_move_block_to_free(int type, t_block *block)
 {
 	ft_delete_block(&g_heap[type].in_use, block);
-
+	
 	if (!ft_insert_block_addr(&g_heap[type].free, block))
-	{
 		ft_insert_block_top(&g_heap[type].free, block);
-		return (0);
-	}
-	else
-		return (1);
 }

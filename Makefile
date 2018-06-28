@@ -27,7 +27,7 @@ SRCS = $(addprefix $(PATH_SRCS)/, malloc.c \
 OBJS = $(SRCS:$(PATH_SRCS)/%.c=$(PATH_OBJS)/%.o)
 INCLUDES = $(addprefix $(PATH_INC)/, malloc.h )
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 CC = gcc
 
 RED = \033[01;31m
@@ -68,15 +68,15 @@ $(TESTS):
 	@$(CC) -o test1 test/test1.c
 	@echo "$(GREEN)compil:$(RESET)\ttest1"	
 	@$(CC) -o test2 test/test2.c
-	# @echo "$(GREEN)compil:$(RESET)\ttest2"
-	# @$(CC) -o test3 test/test3.c
-	# @echo "$(GREEN)compil:$(RESET)\ttest3"
-	# @$(CC) -o test3bis test/test3bis.c
-	# @echo "$(GREEN)compil:$(RESET)\ttest3bis"
-	# @$(CC) -o test4 test/test4.c
-	# @echo "$(GREEN)compil:$(RESET)\ttest4"
-	# @$(CC) -o test5 test/test5.c
-	# @echo "$(GREEN)compil:$(RESET)\ttest5"	
+	@echo "$(GREEN)compil:$(RESET)\ttest2"
+	@$(CC) -o test3 test/test3.c
+	@echo "$(GREEN)compil:$(RESET)\ttest3"
+	@$(CC) -o test3bis test/test3bis.c
+	@echo "$(GREEN)compil:$(RESET)\ttest3bis"
+	@$(CC) -o test4 test/test4.c
+	@echo "$(GREEN)compil:$(RESET)\ttest4"
+	@$(CC) -o test5 test/test5.c -L. -lft_malloc 
+	@echo "$(GREEN)compil:$(RESET)\ttest5"	
 
 clean:
 	@rm -rf $(OBJS)
