@@ -20,14 +20,13 @@ t_block		*ft_choose_free_block(int type, size_t size)
 		last->next = ft_extend_free_pool(last, type, size);
 	}
 
-	return (last->next); // 
+	return (last->next);
 }
 
 t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 {
 	t_block 	*block;
 	size_t		pages;
-
 
 	if (type == TINY)
 		pages = ft_align_size(NB_BLOCKS * (TINY_BLOCK + ft_header_size()), getpagesize());

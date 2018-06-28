@@ -56,7 +56,7 @@ void		ft_move_block_to_use(int type, t_block *block);
 /*
 ** DEFRAGMENTATION
 */
-// void		ft_defragmentation(int type);
+void		ft_defragmentation(int type);
 void		ft_fusion_blocks(t_block *block1, t_block *block2);
 
 /*

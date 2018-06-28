@@ -16,7 +16,7 @@ void	free(void *ptr)
 	if (block)
 	{
 		defrag = ft_move_block_to_free(type, block);
-		// ft_defragmentation(type);
+		ft_defragmentation(type);
 	}
 
 }
