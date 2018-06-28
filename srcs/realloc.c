@@ -41,7 +41,8 @@ void		*realloc(void *ptr, size_t size)
 	t_block		*block;
 	int			type;
 
-	show_alloc_mem();
+	// show_alloc_mem();
+	ft_putendl("\t\tREALLOC");
 
 	if (!ptr)
 	{

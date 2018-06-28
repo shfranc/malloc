@@ -5,6 +5,8 @@ void	free(void *ptr)
 	t_block		*block;
 	int			type;
 
+	ft_putendl("\t\tFREE");
+
 	block = NULL;
 	if (!ptr)
 	{

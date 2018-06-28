@@ -86,6 +86,7 @@ size_t 		ft_align_size(size_t size, size_t multiple);
 void		ft_print_debug(int func, t_block *block);
 void		ft_show_block_full(t_block *block);
 void	ft_list_len(t_block *blocks);
+void	ft_print_pool(int type);
 
 /*
 ** DISPLAY

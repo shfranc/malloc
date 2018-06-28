@@ -66,6 +66,9 @@ void		ft_insert_block_top(t_block **start, t_block *block)
 int		ft_insert_block_addr(t_block **start, t_block *new_block)
 {
 	t_block		*block;
+	int i;
+
+	i = 0;
 
 	if (!*start)
 	{
@@ -78,12 +81,14 @@ int		ft_insert_block_addr(t_block **start, t_block *new_block)
 	else
 	{
 		block = *start;
+		i = 0;
 		while (block)
 		{
+			i++;
 			// ft_putendl("looking for a place..");
 			if ((char*)new_block == ((char*)block + ft_header_size() + block->size))
 			{
-				ft_putendl("ft_insert_block_addr: add PERFECT place");
+				ft_putnbr_str("ft_insert_block_addr: add PERFECT place ", i);
 				new_block->next = block->next;
 				if (block->next)
 					block->next->prev = block;

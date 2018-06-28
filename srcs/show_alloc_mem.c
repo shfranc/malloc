@@ -49,26 +49,32 @@ void			show_alloc_mem(void)
 	ft_putaddr_endl((unsigned long long)&g_heap[TINY]);
 	ft_putstr("\tfree : ");
 	ft_putaddr_endl((unsigned long long)g_heap[TINY].free);
+	ft_list_len(g_heap[TINY].free);
 	ft_show_heap(g_heap[TINY].free);
 	ft_putstr("\tin use : ");
 	ft_putaddr_endl((unsigned long long)g_heap[TINY].in_use);
+	ft_list_len(g_heap[TINY].in_use);
 	ft_show_heap(g_heap[TINY].in_use);
 	
 	ft_putstr("SMALL : ");
 	ft_putaddr_endl((unsigned long long)&g_heap[SMALL]);
 	ft_putstr("\tfree : ");
 	ft_putaddr_endl((unsigned long long)g_heap[SMALL].free);
+	ft_list_len(g_heap[SMALL].free);
 	ft_show_heap(g_heap[SMALL].free);
 	ft_putstr("\tin use : ");
 	ft_putaddr_endl((unsigned long long)g_heap[SMALL].in_use);
+	ft_list_len(g_heap[SMALL].in_use);
 	ft_show_heap(g_heap[SMALL].in_use);
 
 	ft_putstr("LARGE : ");
 	ft_putaddr_endl((unsigned long long)&g_heap[LARGE]);
 	ft_putstr("\tfree : ");
 	ft_putaddr_endl((unsigned long long)g_heap[LARGE].free);
+	ft_list_len(g_heap[LARGE].free);
 	ft_show_heap(g_heap[LARGE].free);
 	ft_putstr("\tin use : ");
 	ft_putaddr_endl((unsigned long long)g_heap[LARGE].in_use);
+	ft_list_len(g_heap[LARGE].in_use);
 	ft_show_heap(g_heap[LARGE].in_use);
 }

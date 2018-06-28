@@ -15,16 +15,17 @@ void	*malloc(size_t size)
 	unsigned int	type;
 	t_block			*block;
 
-	// ft_putendl(BLUE"MALLOC"RESET);
-
+	show_alloc_mem();
+	ft_putendl("\t\tMALLOC");
+	
 	size = ft_align_size(size, 16);
 	// ft_putnbr_str("size:", size);
 
 	type = ft_choose_pool(size);
 	// ft_putnbr_str("type:", type);
 
-	if (!g_heap[type].free)
-		g_heap[type].free = ft_extend_free_pool(NULL, type, size);
+	// if (!g_heap[type].free)
+		// g_heap[type].free = ft_extend_free_pool(NULL, type, size);
 
 	block = ft_choose_free_block(type, size);
 

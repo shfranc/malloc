@@ -56,3 +56,13 @@ void	ft_list_len(t_block *blocks)
 	}
 	ft_putnbr_str("len heap", i);
 }
+
+void	ft_print_pool(int type)
+{
+	if (type == 0)
+		ft_putstr("-- TINY ");
+	else if (type == 1)
+		ft_putstr("-- SMALL ");
+	else if (type == 2)
+		ft_putstr("-- LARGE ");
+}
