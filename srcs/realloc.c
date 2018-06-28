@@ -27,18 +27,12 @@ static void		*ft_do_realloc(int type, t_block *block, size_t size)
 {
 	void	*new_data;
 
-	(void)type;
-	ft_putendl("new malloc");
 	new_data = malloc(size);
-	show_alloc_mem();
-	ft_putaddr_endl((unsigned long long)new_data);
-	ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
-	ft_putendl("ft_memmove");
-	ft_putnbr_str("size", size);
-	memmove(new_data, (char*)block + ft_header_size(), ft_align_size(size, 16));
-	ft_putendl("move to free");
+	ft_memmove(new_data, (char*)block + ft_header_size(), ft_align_size(size, 16));
 	ft_move_block_to_free(type, block);
-	ft_putaddr_endl((unsigned long long)new_data);
+	
+	ft_print_debug(3, block);
+
 	return (new_data);
 }
 
@@ -47,12 +41,11 @@ void		*realloc(void *ptr, size_t size)
 	t_block		*block;
 	int			type;
 
-	ft_putendl(CYAN"REALLOC"RESET);
-	ft_print_debug(3, ptr, size);
+	show_alloc_mem();
 
 	if (!ptr)
 	{
-		ft_putendl("realloc - ptr NULL --> malloc");
+		ft_putnbr_str("realloc - ptr NULL --> malloc - size", size);
 		return (malloc(size));
 	}
 
@@ -63,9 +56,6 @@ void		*realloc(void *ptr, size_t size)
 		return (NULL);
 	}
 
-	ft_putnbr_str("block size", block->size);
-	ft_putnbr_str("new size", size);
-	
 	if (size <= block->size)
 	{
 		ft_putendl("realloc - size is smaller --> ptr");

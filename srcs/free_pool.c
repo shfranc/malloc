@@ -16,7 +16,7 @@ t_block		*ft_choose_free_block(int type, size_t size)
 
 	if (!block) // useless ?? Non, les tous les block sont0 trop petits !
 	{
-		ft_putendl("extend heap ICI - size not big enough");
+		ft_putendl("ft_choose_free_block: extend heap ICI - size not big enough");
 		last->next = ft_extend_free_pool(last, type, size);
 	}
 
@@ -39,7 +39,7 @@ t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 	block->size = pages - ft_header_size();
 	block->prev = last;
 	block->next = NULL;
-	ft_putnbr_str(YELLOW"extend heap:"RESET, block->size);
+	ft_putnbr_str("ft_extend_free_pool:", block->size);
 
 	return(block);
 }

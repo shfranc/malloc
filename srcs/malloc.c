@@ -15,7 +15,7 @@ void	*malloc(size_t size)
 	unsigned int	type;
 	t_block			*block;
 
-	ft_putendl(BLUE"MALLOC"RESET);
+	// ft_putendl(BLUE"MALLOC"RESET);
 
 	size = ft_align_size(size, 16);
 	// ft_putnbr_str("size:", size);
@@ -37,7 +37,7 @@ void	*malloc(size_t size)
 	// ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
 
 	// show_alloc_mem();
-	ft_print_debug(1, (void*)((char*)block + ft_header_size()), block->size);
+	ft_print_debug(1, block);
 
 	return ((void*)((char*)block + ft_header_size()));
 }

@@ -83,7 +83,9 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block);
 ** TOOLS
 */
 size_t 		ft_align_size(size_t size, size_t multiple);
-void		ft_print_debug(int func, void *ptr, size_t size);
+void		ft_print_debug(int func, t_block *block);
+void		ft_show_block_full(t_block *block);
+void	ft_list_len(t_block *blocks);
 
 /*
 ** DISPLAY

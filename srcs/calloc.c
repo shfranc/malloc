@@ -26,6 +26,6 @@ void	*calloc(size_t count, size_t size)
 	{
 		ft_bzero(data, count * size);
 	}
-	ft_print_debug(4, data, count * size);
+	// ft_print_debug(4, data - ft_header_size());
 	return (data);
 }
