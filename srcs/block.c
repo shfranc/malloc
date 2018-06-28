@@ -44,15 +44,17 @@ void		ft_delete_block(t_block **start, t_block *block)
 
 void		ft_insert_block_top(t_block **start, t_block *block)
 {
-	ft_putendl(GREEN"add TOP"RESET);
+	ft_putstr(GREEN"add TOP "RESET);
 	if (!*start)
 	{
+		ft_putendl("empty list ");
 		*start = block;
 		block->next = NULL;
 		block->prev = NULL;
 	}
 	else
 	{
+		ft_putendl("new top of the list ");
 		(*start)->prev = block;
 		block->next = *start;
 		block->prev = NULL;

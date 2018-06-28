@@ -1,4 +1,5 @@
 #include "malloc.h"
+#include <string.h>
 
 static void	*ft_memmove(void *dst, const void *src, size_t n)
 {
@@ -27,9 +28,15 @@ static void		*ft_do_realloc(int type, t_block *block, size_t size)
 	void	*new_data;
 
 	(void)type;
-
+	ft_putendl("new malloc");
 	new_data = malloc(size);
-	ft_memmove(new_data, (char*)block + ft_header_size(), size);
+	show_alloc_mem();
+	ft_putaddr_endl((unsigned long long)new_data);
+	ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
+	ft_putendl("ft_memmove");
+	ft_putnbr_str("size", size);
+	memmove(new_data, (char*)block + ft_header_size(), ft_align_size(size, 16));
+	ft_putendl("move to free");
 	ft_move_block_to_free(type, block);
 	ft_putaddr_endl((unsigned long long)new_data);
 	return (new_data);
@@ -50,7 +57,7 @@ void		*realloc(void *ptr, size_t size)
 	}
 
 	type = ft_find_used_block(ptr, &block);
-	if (type == -1)
+	if (type == -1 || !block)
 	{
 		ft_putendl("realloc - ptr not found --> NULL");
 		return (NULL);

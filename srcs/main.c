@@ -29,8 +29,8 @@ int		main(void)
 	// 	// free(s1);
 	// }
 
-	s1 = (char *)malloc(4064);
-	ft_memset(s1, '1', 4064);
+	s1 = (char *)malloc(4100);
+	ft_memset(s1, '1', 4100);
 
 	// s2 = (char *)malloc(17);
 	// ft_memset(s2, '2', 17);
