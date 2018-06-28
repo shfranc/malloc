@@ -31,6 +31,7 @@ static void		*ft_do_realloc(int type, t_block *block, size_t size)
 	new_data = malloc(size);
 	ft_memmove(new_data, (char*)block + ft_header_size(), size);
 	ft_move_block_to_free(type, block);
+	ft_putaddr_endl((unsigned long long)new_data);
 	return (new_data);
 }
 
@@ -40,6 +41,7 @@ void		*realloc(void *ptr, size_t size)
 	int			type;
 
 	ft_putendl(CYAN"REALLOC"RESET);
+	ft_print_debug(3, ptr, size);
 
 	if (!ptr)
 	{
@@ -55,6 +57,7 @@ void		*realloc(void *ptr, size_t size)
 	}
 
 	ft_putnbr_str("block size", block->size);
+	ft_putnbr_str("new size", size);
 	
 	if (size <= block->size)
 	{

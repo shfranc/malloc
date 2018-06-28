@@ -4,16 +4,16 @@
 t_block		*ft_search_heap(t_block *blocks, void *ptr)
 {
 	t_block 	*block;
-
+	
+	ft_putstr("searching for... ");
+	ft_putaddr_endl((unsigned long long)ptr);
 	block = blocks;
 	while (block)
 	{
-		// ft_putstr("searching for... ");
-		// ft_putaddr_endl((unsigned long long)ptr);
 		// ft_putstr("data: ");
 		// ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
 
-		if ((void*)((char*)block + ft_header_size()) == ptr)
+		if ((char*)block + ft_header_size() == (char*)ptr)
 			return (block);
 
 		block = block->next;

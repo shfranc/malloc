@@ -13,7 +13,9 @@ PATH_LIB = $(shell pwd)
 SRCS = $(addprefix $(PATH_SRCS)/, malloc.c \
 		free.c \
 		realloc.c \
+		calloc.c \
 		show_alloc_mem.c \
+		debug.c \
 		in_use_pool.c \
 		free_pool.c \
 		block.c \

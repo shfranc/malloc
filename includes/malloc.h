@@ -82,20 +82,25 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block);
 ** TOOLS
 */
 size_t 		ft_align_size(size_t size, size_t multiple);
+void		ft_print_debug(int func, void *ptr, size_t size);
 
 /*
 ** DISPLAY
 */
 void		ft_show_heap(t_block *blocks);
 void		ft_putnbr(int n);
+void		ft_putnbr_fd(int fd, int n);
 void		ft_putnbr_endl(int n);
 void		ft_putullnbr_endl(unsigned long long int n);
 void		ft_putnbr_str(char *str, int n);
 void		ft_putchar(char c);
+void		ft_putchar_fd(int fd, char c);
 void		ft_putstr(char const *s);
+void		ft_putstr_fd(int fd, char const *s);
 void		ft_putendl(char const *s);
 void		ft_putendl_2(char const *s1, char const *s2);
 void		ft_putaddr(unsigned long long p);
+void		ft_putaddr_fd(int fd, unsigned long long p);
 void		ft_putaddr_endl(unsigned long long p);
 
 #endif

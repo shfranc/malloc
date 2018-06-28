@@ -37,6 +37,7 @@ void	*malloc(size_t size)
 	// ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
 
 	// show_alloc_mem();
+	ft_print_debug(1, (void*)((char*)block + ft_header_size()), size);
 
 	return ((void*)((char*)block + ft_header_size()));
 }
