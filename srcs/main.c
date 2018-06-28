@@ -19,29 +19,43 @@ int		main(void)
 	char 	*s3;
 	int		i;
 
-	s1 = (char *)malloc(17);
-	ft_memset(s1, '1', 17);
+	// s1 = (char *)malloc(17);
+	// ft_memset(s1, '1', 17);
 
-	s2 = (char *)malloc(17);
-	ft_memset(s2, '2', 17);
+	// s2 = (char *)malloc(17);
+	// ft_memset(s2, '2', 17);
 	
+	// s3 = (char *)malloc(17);
+	// ft_memset(s3, '3', 17);
+
+	// show_alloc_mem();
+
+	// free(s2);
+	// free(s1);
+	// free(s3);
+
+	// show_alloc_mem();
+
+	// s3 = (char *)malloc(17);
+	// ft_memset(s3, '3', 17);
+	// show_alloc_mem();
+	
+	// free(s3);
+	
+	// show_alloc_mem();
+
 	s3 = (char *)malloc(17);
-	ft_memset(s3, '3', 17);
+	ft_putaddr_endl((unsigned long long)s3);
 
+	ft_memset(s3, '3', 17);	
 	show_alloc_mem();
 
-	free(s2);
-	free(s1);
+	s3 = (char *)realloc(s3, 180);
+	ft_putaddr_endl((unsigned long long)s3);
+	show_alloc_mem();
+	ft_memset(s3, '3', 180);
+
 	free(s3);
-
-	show_alloc_mem();
-
-	s3 = (char *)malloc(17);
-	ft_memset(s3, '3', 17);
-	show_alloc_mem();
-	
-	free(s3);
-	
 	show_alloc_mem();
 
 	// s1 = (char *)malloc(600);
