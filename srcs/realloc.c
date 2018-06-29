@@ -31,7 +31,7 @@ static void		*ft_do_realloc(int type, t_block *block, size_t size)
 	ft_memmove(new_data, (char*)block + ft_header_size(), ft_align_size(size, 16));
 	ft_move_block_to_free(type, block);
 	
-	ft_print_debug(3, block);
+	g_debug ? ft_print_debug(3, block) : 0;
 
 	return (new_data);
 }
@@ -42,29 +42,29 @@ void		*realloc(void *ptr, size_t size)
 	int			type;
 
 	// show_alloc_mem();
-	ft_putendl("\t\tREALLOC");
+	g_debug ? ft_putendl("\n\t\tREALLOC") : 0;
 
 	if (!ptr)
 	{
-		ft_putnbr_str("realloc - ptr NULL --> malloc - size", size);
+		g_debug ? ft_putnbr_str("realloc - ptr NULL --> malloc - size", size) : 0;
 		return (malloc(size));
 	}
 
 	type = ft_find_used_block(ptr, &block);
 	if (type == -1 || !block)
 	{
-		ft_putendl("realloc - ptr not found --> NULL");
+		g_debug ? ft_putendl("realloc - ptr not found --> NULL") : 0;
 		return (NULL);
 	}
 
 	if (size <= block->size)
 	{
-		ft_putendl("realloc - size is smaller --> ptr");
+		g_debug ? ft_putendl("realloc - size is smaller --> ptr") : 0;
 		return (ptr);
 	}
 	else
 	{
-		ft_putendl("do realloc !!");
+		g_debug ? ft_putendl("do realloc !!") : 0;
 		return (ft_do_realloc(type, block, size));
 	}
 

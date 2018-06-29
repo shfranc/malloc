@@ -2,14 +2,6 @@
 
 static void	ft_print_debug_line(char *s, t_block *block)
 {
-	// ft_putstr_fd(2, s);
-	// ft_putstr_fd(2, " - ");
-	// ft_putaddr_fd(2, (unsigned long long)ptr);
-	// ft_putstr_fd(2, " - ");
-	// ft_putnbr_fd(2, size);
-	// ft_putstr_fd(2, " octets");
-	// ft_putchar_fd(2, '\n');
-
 	ft_putstr_fd(2, s);
 	ft_putstr_fd(2, "\t- ");
 	ft_putaddr_fd(2, (unsigned long long)block);
@@ -52,6 +44,7 @@ void	ft_list_len(t_block *blocks)
 	while(block)
 	{
 		i++;
+		// ft_show_block_full(block);
 		block = block->next;
 	}
 	ft_putnbr_str("len heap", i);

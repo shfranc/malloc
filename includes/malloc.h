@@ -32,6 +32,7 @@ typedef struct s_heap
 }				t_heap;
 
 t_heap		g_heap[2];
+int  g_debug;
 
 enum e_heap
 {
@@ -51,6 +52,7 @@ void		show_alloc_mem(void);
 */
 // int			ft_choose_pool(size_t size);
 t_block		*ft_choose_free_block(int type, size_t size);
+t_block 	*ft_add_free_block(t_block *last, int type, size_t size);
 t_block		*ft_extend_free_pool(void *last, int type, size_t size);
 t_block		*ft_request_memory(void *last, size_t size);
 void		ft_move_block_to_use(int type, t_block *block);

@@ -49,7 +49,7 @@ void			show_alloc_mem(void)
 	ft_putaddr_endl((unsigned long long)&g_heap[TINY]);
 	ft_putstr("\tfree : ");
 	ft_putaddr_endl((unsigned long long)g_heap[TINY].free);
-	ft_list_len(g_heap[TINY].free);
+	ft_list_len(g_heap[TINY].free); //
 	ft_show_heap(g_heap[TINY].free);
 	ft_putstr("\tin use : ");
 	ft_putaddr_endl((unsigned long long)g_heap[TINY].in_use);

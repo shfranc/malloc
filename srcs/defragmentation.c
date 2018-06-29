@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-void		ft_fusion_blocks(t_block *block1, t_block *block2)
+void	ft_fusion_blocks(t_block *block1, t_block *block2)
 {
 	ft_putstr("ft_fusion_blocks: ");
 	ft_putaddr((unsigned long long)block1);
