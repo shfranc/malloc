@@ -69,7 +69,11 @@ t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 
 t_block		*ft_request_memory(void *last, size_t size)
 {
-	return (mmap(last, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE, -1, 0));
+	t_block *tmp;
+	
+	if ((tmp = mmap(last, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE, -1, 0)) == MAP_FAILED)
+		return (NULL);
+	return (tmp);
 }
 
 void		ft_move_block_to_use(int type, t_block *block)

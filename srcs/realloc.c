@@ -1,7 +1,7 @@
 #include "malloc.h"
 #include <string.h>
 
-static void	*ft_memmove(void *dst, const void *src, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
 	unsigned char *temp_dst;
 	unsigned char *temp_src;
@@ -27,11 +27,16 @@ static void		*ft_do_realloc(int type, t_block *block, size_t size)
 {
 	void	*new_data;
 
+	(void)type;
+	(void)block;
+
 	new_data = malloc(size);
-	ft_memmove(new_data, (char*)block + ft_header_size(), size); // size ? ft_align_size(size, 16); ?
+	g_debug ? ft_putaddr_endl((unsigned long long)new_data) : 0;
+	g_debug ? ft_putnbr_str("size: ", size) : 0;
+	ft_memmove(new_data, (char*)block + ft_header_size(), block->size); // size ? ft_align_size(size, 16); ?
 	ft_free_block(type, block);
 	
-	g_debug ? ft_print_debug(3, block) : 0;
+	g_debug ? ft_print_debug(3, new_data - ft_header_size()) : 0;
 
 	return (new_data);
 }
