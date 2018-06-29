@@ -63,13 +63,13 @@ $(PATH_OBJS)/%.o: $(PATH_SRCS)/%.c $(INCLUDES)
 	@echo "$(YELLOW)compil:$(RESET)\t$@"
 
 $(TESTS):
-	@$(CC) -o test0 test/test0.c
+	@$(CC) -o test0 test/test0.c -L. -lft_malloc
 	@echo "$(GREEN)compil:$(RESET)\ttest0"
 	@$(CC) -o test1 test/test1.c
 	@echo "$(GREEN)compil:$(RESET)\ttest1"	
 	@$(CC) -o test2 test/test2.c
 	@echo "$(GREEN)compil:$(RESET)\ttest2"
-	@$(CC) -o test3 test/test3.c
+	@$(CC) -o test3 test/test3.c -L. -lft_malloc 
 	@echo "$(GREEN)compil:$(RESET)\ttest3"
 	@$(CC) -o test3bis test/test3bis.c
 	@echo "$(GREEN)compil:$(RESET)\ttest3bis"

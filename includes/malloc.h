@@ -14,7 +14,7 @@
 # define WHITE		"\033[01;37m"
 # define RESET		"\033[00m"
 
-# define NB_BLOCKS		1
+# define NB_BLOCKS		100
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
@@ -32,6 +32,7 @@ typedef struct s_heap
 }				t_heap;
 
 t_heap		g_heap[2];
+int  g_debug;
 
 enum e_heap
 {
@@ -51,9 +52,15 @@ void		show_alloc_mem(void);
 */
 // int			ft_choose_pool(size_t size);
 t_block		*ft_choose_free_block(int type, size_t size);
+t_block 	*ft_add_free_block(t_block *last, int type, size_t size);
 t_block		*ft_extend_free_pool(void *last, int type, size_t size);
 t_block		*ft_request_memory(void *last, size_t size);
 void		ft_move_block_to_use(int type, t_block *block);
+
+/*
+** FREE
+*/
+void	ft_free_block(int type, t_block *block);
 
 /*
 ** DEFRAGMENTATION
@@ -83,7 +90,10 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block);
 ** TOOLS
 */
 size_t 		ft_align_size(size_t size, size_t multiple);
-void		ft_print_debug(int func, void *ptr, size_t size);
+void		ft_print_debug(int func, t_block *block);
+void		ft_show_block_full(t_block *block);
+void	ft_list_len(t_block *blocks);
+void	ft_print_pool(int type);
 
 /*
 ** DISPLAY

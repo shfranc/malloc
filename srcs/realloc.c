@@ -1,6 +1,7 @@
 #include "malloc.h"
+#include <string.h>
 
-static void	*ft_memmove(void *dst, const void *src, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t n)
 {
 	unsigned char *temp_dst;
 	unsigned char *temp_src;
@@ -27,11 +28,16 @@ static void		*ft_do_realloc(int type, t_block *block, size_t size)
 	void	*new_data;
 
 	(void)type;
+	(void)block;
 
 	new_data = malloc(size);
-	ft_memmove(new_data, (char*)block + ft_header_size(), size);
-	ft_move_block_to_free(type, block);
-	ft_putaddr_endl((unsigned long long)new_data);
+	g_debug ? ft_putaddr_endl((unsigned long long)new_data) : 0;
+	g_debug ? ft_putnbr_str("size: ", size) : 0;
+	ft_memmove(new_data, (char*)block + ft_header_size(), block->size); // size ? ft_align_size(size, 16); ?
+	ft_free_block(type, block);
+	
+	g_debug ? ft_print_debug(3, new_data - ft_header_size()) : 0;
+
 	return (new_data);
 }
 
@@ -40,33 +46,30 @@ void		*realloc(void *ptr, size_t size)
 	t_block		*block;
 	int			type;
 
-	ft_putendl(CYAN"REALLOC"RESET);
-	ft_print_debug(3, ptr, size);
+	// show_alloc_mem();
+	g_debug ? ft_putendl("\n\t\tREALLOC") : 0;
 
 	if (!ptr)
 	{
-		ft_putendl("realloc - ptr NULL --> malloc");
+		g_debug ? ft_putnbr_str("realloc - ptr NULL --> malloc - size", size) : 0;
 		return (malloc(size));
 	}
 
 	type = ft_find_used_block(ptr, &block);
-	if (type == -1)
+	if (type == -1 || !block)
 	{
-		ft_putendl("realloc - ptr not found --> NULL");
+		g_debug ? ft_putendl("realloc - ptr not found --> NULL") : 0;
 		return (NULL);
 	}
 
-	ft_putnbr_str("block size", block->size);
-	ft_putnbr_str("new size", size);
-	
 	if (size <= block->size)
 	{
-		ft_putendl("realloc - size is smaller --> ptr");
+		g_debug ? ft_putendl("realloc - size is smaller --> ptr") : 0;
 		return (ptr);
 	}
 	else
 	{
-		ft_putendl("do realloc !!");
+		g_debug ? ft_putendl("do realloc !!") : 0;
 		return (ft_do_realloc(type, block, size));
 	}
 

@@ -29,11 +29,11 @@ int		main(void)
 	// 	// free(s1);
 	// }
 
-	s1 = (char *)malloc(4064);
-	ft_memset(s1, '1', 4064);
+	s1 = (char *)malloc(56);
+	ft_memset(s1, '1', 56);
 
-	// s2 = (char *)malloc(17);
-	// ft_memset(s2, '2', 17);
+	s2 = (char *)malloc(17);
+	ft_memset(s2, '2', 17);
 	
 	// s3 = (char *)malloc(17);
 	// ft_memset(s3, '3', 17);
