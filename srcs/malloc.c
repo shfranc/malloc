@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-int g_debug = 0;
+int g_debug = 1;
 
 static int		ft_choose_pool(size_t size)
 {
@@ -18,7 +18,6 @@ void	*malloc(size_t size)
 	t_block			*block;
 
 	g_debug ? ft_putendl("\n\t\tMALLOC") : 0;
-	ft_putendl("\n\t\tMALLOC");
 	
 	size = ft_align_size(size, 16);
 	// ft_putnbr_str("size:", size);

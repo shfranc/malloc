@@ -14,7 +14,7 @@
 # define WHITE		"\033[01;37m"
 # define RESET		"\033[00m"
 
-# define NB_BLOCKS		1
+# define NB_BLOCKS		100
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
@@ -56,6 +56,11 @@ t_block 	*ft_add_free_block(t_block *last, int type, size_t size);
 t_block		*ft_extend_free_pool(void *last, int type, size_t size);
 t_block		*ft_request_memory(void *last, size_t size);
 void		ft_move_block_to_use(int type, t_block *block);
+
+/*
+** FREE
+*/
+void	ft_free_block(int type, t_block *block);
 
 /*
 ** DEFRAGMENTATION

@@ -28,8 +28,8 @@ static void		*ft_do_realloc(int type, t_block *block, size_t size)
 	void	*new_data;
 
 	new_data = malloc(size);
-	ft_memmove(new_data, (char*)block + ft_header_size(), ft_align_size(size, 16));
-	ft_move_block_to_free(type, block);
+	ft_memmove(new_data, (char*)block + ft_header_size(), size); // size ? ft_align_size(size, 16); ?
+	ft_free_block(type, block);
 	
 	g_debug ? ft_print_debug(3, block) : 0;
 
