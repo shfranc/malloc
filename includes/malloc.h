@@ -19,7 +19,7 @@
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
-# define STAT			0
+# define STAT			1
 
 typedef struct 		s_block
 {
@@ -84,7 +84,6 @@ void		ft_move_block_to_free(int type, t_block *block);
 /*
 ** BLOCKS
 */
-size_t		ft_header_size(void);
 t_block		*ft_split_block(t_block *block, int type, size_t size);
 void		ft_delete_block(t_block **start, t_block *block);
 void		ft_insert_block_top(t_block **start, t_block *block);
@@ -95,6 +94,8 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block);
 ** TOOLS
 */
 size_t 		ft_align_size(size_t size, size_t multiple);
+size_t		ft_header_size(void);
+
 int			ft_block_len(t_block *blocks);
 void		ft_print_debug(int func, t_block *block);
 void		ft_show_block_full(t_block *block);
