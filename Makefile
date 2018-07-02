@@ -15,6 +15,7 @@ SRCS = $(addprefix $(PATH_SRCS)/, malloc.c \
 		realloc.c \
 		calloc.c \
 		show_alloc_mem.c \
+		show_alloc_mem_hex.c \
 		stats.c \
 		debug.c \
 		in_use_pool.c \
@@ -24,6 +25,7 @@ SRCS = $(addprefix $(PATH_SRCS)/, malloc.c \
 		display_str.c \
 		display_nbr.c \
 		ft_putaddr.c \
+		ft_print_memory.c \
 		ft_align_size.c )
 OBJS = $(SRCS:$(PATH_SRCS)/%.c=$(PATH_OBJS)/%.o)
 INCLUDES = $(addprefix $(PATH_INC)/, malloc.h )
@@ -91,7 +93,7 @@ fclean: clean
 	@echo "$(BLUE)clean:$(RESET)\t$(LIB)"
 	@rm -rf $(MAIN)
 	@echo "$(BLUE)clean:$(RESET)\t$(MAIN)"
-	@rm -rf test0 test1
+	# @rm -rf test0 test1
 	@echo "$(BLUE)clean:$(RESET)\t$(TESTS)"	
 
 re: fclean all
