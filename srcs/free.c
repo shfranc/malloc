@@ -8,8 +8,8 @@ void	ft_munmap_large(t_block *block)
 
 void	ft_free_block(int type, t_block *block)
 {
-	// if (!block)
-		// return ;
+	pthread_mutex_lock(&g_mutex);
+
 	g_debug ? ft_putstr("ft_free_block :") : 0;
 
 	if (type == TINY || type == SMALL)			
@@ -28,6 +28,8 @@ void	ft_free_block(int type, t_block *block)
 
 		ft_munmap_large(block);
 	}
+	pthread_mutex_unlock(&g_mutex);
+	
 }
 
 void	free(void *ptr)
@@ -44,17 +46,14 @@ void	free(void *ptr)
 		return ;
 	}
 	
+	pthread_mutex_lock(&g_mutex);
+	
 	type = ft_find_used_block(ptr, &block);
+	
+	pthread_mutex_unlock(&g_mutex);
 	
 	if (type > -1)
 		ft_free_block(type, block);
-
-	// if (block && (type == TINY || type == SMALL))
-	// if (block)
-	// {
-	// 	ft_move_block_to_free(type, block);
-	// 	ft_defragmentation(type);
-	// }
 	
 	g_debug ? ft_print_debug(2, block) : 0;
 	g_debug ? show_alloc_mem() : 0;

@@ -1,6 +1,7 @@
 #include "malloc.h"
 
 int g_debug = 0;
+pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 t_block		*ft_alloc_large(size_t size)
 {
@@ -33,12 +34,10 @@ void	*malloc(size_t size)
 
 	g_debug ? ft_putendl("\n\t\tMALLOC") : 0;
 	
+	pthread_mutex_lock(&g_mutex);
+	
 	size = ft_align_size(size, 16);
-	// ft_putnbr_str("size:", size);
-
 	type = ft_choose_pool(size);
-	// ft_putnbr_str("type:", type);
-
 	if (type == TINY || type == SMALL)
 	{
 		block = ft_choose_free_block(type, size);
@@ -52,12 +51,9 @@ void	*malloc(size_t size)
 		block = ft_alloc_large(size);
 	}
 
-	// ft_putaddr_endl((unsigned long long)block);
-	// ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
-
-	// show_alloc_mem();
 	g_debug ? ft_print_debug(1, block) : 0;
 	g_debug ? show_alloc_mem() : 0;
+	pthread_mutex_unlock(&g_mutex);
 
 	return ((void*)((char*)block + ft_header_size()));
 }

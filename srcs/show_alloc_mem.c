@@ -45,6 +45,8 @@ void			ft_show_heap(t_block *blocks)
 
 void			show_alloc_mem(void)
 {
+	pthread_mutex_lock(&g_mutex);
+
 	ft_putstr("TINY : ");
 	ft_putaddr_endl((unsigned long long)&g_heap[TINY]);
 	ft_putstr("\tfree : ");
@@ -77,4 +79,7 @@ void			show_alloc_mem(void)
 	ft_putaddr_endl((unsigned long long)g_heap[LARGE].in_use);
 	ft_list_len(g_heap[LARGE].in_use);
 	ft_show_heap(g_heap[LARGE].in_use);
+	
+	pthread_mutex_unlock(&g_mutex);
+
 }

@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <sys/mman.h>
 # include <sys/resource.h>
+# include <pthread.h>
 
 # define RED		"\033[01;31m"
 # define GREEN		"\033[01;32m"
@@ -18,7 +19,7 @@
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
-# define STAT			1
+# define STAT			0
 
 typedef struct 		s_block
 {
@@ -34,6 +35,7 @@ typedef struct s_heap
 }				t_heap;
 
 t_heap		g_heap[2];
+extern pthread_mutex_t g_mutex;
 int  g_debug;
 
 enum e_heap
