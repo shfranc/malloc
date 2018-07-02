@@ -103,7 +103,7 @@ void	ft_print_pool(int type);
 ** STATS
 */
 void	ft_stat_malloc(int i);
-void	ft_stat_free(int i, int len);
+void	ft_stat_free(void);
 void	ft_stat_defrag(void);
 
 /*
