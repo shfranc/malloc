@@ -22,6 +22,7 @@ t_block		*ft_choose_free_block(int type, size_t size)
 			g_debug ? ft_list_len(g_heap[type].free) : 0;
 			g_debug ? ft_putstr("ft_choose_free_block: ") : 0;
 			g_debug ? ft_show_block_full(block) : 0;
+			STAT ? ft_stat_malloc(i) : 0;
 			return (block);
 		}
 		block = block->next;

@@ -50,6 +50,21 @@ void	ft_list_len(t_block *blocks)
 	ft_putnbr_str("len heap", i);
 }
 
+int	ft_block_len(t_block *blocks)
+{
+	t_block		*block;
+	int			i;
+
+	i = 0;
+	block = blocks;
+	while(block)
+	{
+		i++;
+		block = block->next;
+	}
+	return (i);
+}
+
 void	ft_print_pool(int type)
 {
 	if (type == 0)
