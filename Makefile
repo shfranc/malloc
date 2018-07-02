@@ -28,7 +28,7 @@ SRCS = $(addprefix $(PATH_SRCS)/, malloc.c \
 OBJS = $(SRCS:$(PATH_SRCS)/%.c=$(PATH_OBJS)/%.o)
 INCLUDES = $(addprefix $(PATH_INC)/, malloc.h )
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -D_REENTRANT
 CC = gcc
 
 RED = \033[01;31m
@@ -55,7 +55,7 @@ $(MAIN): $(LIB) srcs/main.c
 	@echo "$(WHITE)test:$(RESET)\t$@"
 
 $(LIB): $(OBJS)
-	@$(CC) -shared $^ -o $@
+	@$(CC) -shared $^ -o $@  -lpthread
 	@echo "$(GREEN)make:$(RESET)\t$@"
 
 $(PATH_OBJS)/%.o: $(PATH_SRCS)/%.c $(INCLUDES)
