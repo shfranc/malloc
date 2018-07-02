@@ -1,7 +1,7 @@
 #include "malloc.h"
 #include <stdio.h>
 
-t_block		*ft_search_heap(t_block *blocks, void *ptr)
+t_block		*ft_search_heap(t_block *blocks, void *ptr, int *i)
 {
 	t_block 	*block;
 	
@@ -16,8 +16,11 @@ t_block		*ft_search_heap(t_block *blocks, void *ptr)
 		// ft_putaddr_endl((unsigned long long)((char*)block + ft_header_size()));
 
 		if ((char*)block + ft_header_size() == (char*)ptr)
+		{
+			STAT ? ft_stat_free(*i, ft_block_len(blocks)) : 0;
 			return (block);
-
+		}
+		*i += 1;
 		block = block->next;
 	}
 	return (NULL);
@@ -25,17 +28,20 @@ t_block		*ft_search_heap(t_block *blocks, void *ptr)
 
 int 	ft_find_used_block(void *ptr, t_block **block)
 {
-	if ((*block = ft_search_heap(g_heap[LARGE].in_use, ptr)))
+	int i;
+
+	i = 0;
+	if ((*block = ft_search_heap(g_heap[LARGE].in_use, ptr, &i)))
 	{
 		g_debug ? ft_putendl("ft_find_used_block: found ! in LARGE") : 0;
 		return (LARGE);
 	}
-	else if ((*block = ft_search_heap(g_heap[SMALL].in_use, ptr)))
+	else if ((*block = ft_search_heap(g_heap[SMALL].in_use, ptr, &i)))
 	{
 		g_debug ? ft_putendl("ft_find_used_block: found ! in SMALL") : 0;
 		return (SMALL);
 	}
-	else if ((*block = ft_search_heap(g_heap[TINY].in_use, ptr)))
+	else if ((*block = ft_search_heap(g_heap[TINY].in_use, ptr, &i)))
 	{
 		g_debug ? ft_putendl("ft_find_used_block: found ! in TINY") : 0;
 		return (TINY);

@@ -18,6 +18,8 @@
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
+# define STAT			1
+
 typedef struct 		s_block
 {
 	size_t			size;
@@ -72,7 +74,8 @@ void		ft_fusion_blocks(t_block *block1, t_block *block2);
 ** IN USE POOL
 */
 int 		ft_find_used_block(void *ptr, t_block **block);
-t_block		*ft_search_heap(t_block *blocks, void *ptr);
+// t_block		*ft_search_heap(t_block *blocks, void *ptr);
+t_block		*ft_search_heap(t_block *blocks, void *ptr, int *i);
 void		ft_move_block_to_free(int type, t_block *block);
 
 
@@ -90,10 +93,18 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block);
 ** TOOLS
 */
 size_t 		ft_align_size(size_t size, size_t multiple);
+int			ft_block_len(t_block *blocks);
 void		ft_print_debug(int func, t_block *block);
 void		ft_show_block_full(t_block *block);
 void	ft_list_len(t_block *blocks);
 void	ft_print_pool(int type);
+
+/*
+** STATS
+*/
+void	ft_stat_malloc(int i);
+void	ft_stat_free(int i, int len);
+void	ft_stat_defrag(void);
 
 /*
 ** DISPLAY

@@ -36,8 +36,8 @@ void			ft_show_heap(t_block *blocks)
 	block = blocks;
 	while (block)
 	{
-		// ft_show_block(block);
-		ft_show_block_full(block);
+		ft_show_block(block);
+		// ft_show_block_full(block);
 		block = block->next;
 	}
 }
