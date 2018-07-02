@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-void	ft_dump_hexa(const void *addr)
+static void	ft_dump_hexa(const void *addr)
 {
 	char	hex[16] = "0123456789abcdef";
 	int		temp;
@@ -11,7 +11,7 @@ void	ft_dump_hexa(const void *addr)
 	write(1, &hex[temp], 1);
 }
 
-void	ft_print_last_line(int i, char s[16])
+static void	ft_print_last_line(int i, char s[16])
 {
 	size_t	a;
 
