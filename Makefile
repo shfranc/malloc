@@ -17,7 +17,7 @@ SRCS = $(addprefix $(PATH_SRCS)/, malloc.c \
 		show_alloc_mem.c \
 		show_alloc_mem_hex.c \
 		stats.c \
-		debug.c \
+		logs.c \
 		in_use_pool.c \
 		free_pool.c \
 		block.c \
