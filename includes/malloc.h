@@ -11,13 +11,11 @@
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
-# define STAT			1
-# define LOG			1
+# define STAT			0
+# define LOG			0
 
 # define STAT_FILE		"metrics"
 # define LOG_FILE		"logs"
-
-
 
 typedef struct 		s_block
 {
