@@ -1,20 +1,37 @@
 #include "malloc.h"
+#include <stdio.h>
 
 void	ft_stat_malloc(int i)
 {
-	ft_putstr_fd(2, "malloc ");
-	ft_putnbr_fd(2, i);
-	ft_putstr_fd(2, "\n");
+	int	fd;
+
+	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		return ;
+	ft_putstr_fd(fd, "malloc ");
+	ft_putnbr_fd(fd, i);
+	ft_putstr_fd(fd, "\n");
+	close(fd);
 }
 
 void	ft_stat_free(void)
 {
-	ft_putstr_fd(2, "free ");
-	ft_putnbr_fd(2, ft_block_len(g_heap[LARGE].free) + ft_block_len(g_heap[SMALL].free) + ft_block_len(g_heap[TINY].free));
-	ft_putstr_fd(2, "\n");
+	int	fd;
+
+	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		return ;
+	ft_putstr_fd(fd, "free\n");
+	close(fd);
 }
 
 void	ft_stat_defrag(void)
 {
-	ft_putstr_fd(2, "defrag\n");
+	int	fd;
+
+	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if (fd == -1)
+		return ;
+	ft_putstr_fd(fd, "defrag\n");
+	close(fd);
 }

@@ -17,7 +17,7 @@ SRCS = $(addprefix $(PATH_SRCS)/, malloc.c \
 		show_alloc_mem.c \
 		show_alloc_mem_hex.c \
 		stats.c \
-		debug.c \
+		logs.c \
 		in_use_pool.c \
 		free_pool.c \
 		block.c \
@@ -93,7 +93,7 @@ fclean: clean
 	@echo "$(BLUE)clean:$(RESET)\t$(LIB)"
 	@rm -rf $(MAIN)
 	@echo "$(BLUE)clean:$(RESET)\t$(MAIN)"
-	# @rm -rf test0 test1
+	@rm -rf test0 test1 test2 test3 test3bis test4 test5
 	@echo "$(BLUE)clean:$(RESET)\t$(TESTS)"	
 
 re: fclean all

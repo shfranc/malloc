@@ -9,6 +9,8 @@ test3bis
 test4
 test5
 buf
+logs
+metrics
 objs/*.o
 srcs/*.swp
 includes/*.swp

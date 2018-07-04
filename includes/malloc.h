@@ -5,44 +5,47 @@
 # include <sys/mman.h>
 # include <sys/resource.h>
 # include <pthread.h>
-
-# define RED		"\033[01;31m"
-# define GREEN		"\033[01;32m"
-# define YELLOW		"\033[01;33m"
-# define BLUE		"\033[01;34m"
-# define PINK		"\033[01;35m"
-# define CYAN		"\033[01;36m"
-# define WHITE		"\033[01;37m"
-# define RESET		"\033[00m"
+# include <fcntl.h>
 
 # define NB_BLOCKS		100
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
 # define STAT			0
+# define LOG			0
+
+# define STAT_FILE		"metrics"
+# define LOG_FILE		"logs"
 
 typedef struct 		s_block
 {
-	size_t			size;
-	struct s_block	*prev;
-	struct s_block	*next;
-}					t_block;
+	size_t				size;
+	struct s_block		*prev;
+	struct s_block		*next;
+}						t_block;
 
 typedef struct s_heap
 {
-	t_block		*in_use;
-	t_block		*free;
-}				t_heap;
+	t_block				*in_use;
+	t_block				*free;
+}						t_heap;
 
-t_heap		g_heap[2];
-extern pthread_mutex_t g_mutex;
-int  g_debug;
+t_heap					g_heap[2];
+extern pthread_mutex_t 	g_mutex;
 
 enum e_heap
 {
 	TINY,
 	SMALL,
 	LARGE
+};
+
+enum e_lib
+{
+	MALLOC,
+	FREE,
+	REALLOC,
+	CALLOC
 };
 
 void		*malloc(size_t size);
@@ -55,7 +58,6 @@ void		show_alloc_mem_hex(void);
 /*
 ** FREE POOL
 */
-// int			ft_choose_pool(size_t size);
 t_block		*ft_choose_free_block(int type, size_t size);
 t_block 	*ft_add_free_block(t_block *last, int type, size_t size);
 t_block		*ft_extend_free_pool(void *last, int type, size_t size);
@@ -63,28 +65,20 @@ t_block		*ft_request_memory(void *last, size_t size);
 void		ft_move_block_to_use(int type, t_block *block);
 
 /*
-** FREE
-*/
-void	ft_free_block(int type, t_block *block);
-
-/*
-** DEFRAGMENTATION
-*/
-void		ft_defragmentation(int type);
-void		ft_fusion_blocks(t_block *block1, t_block *block2);
-
-/*
 ** IN USE POOL
 */
 int 		ft_find_used_block(void *ptr, t_block **block);
-t_block		*ft_search_heap(t_block *blocks, void *ptr, int *i);
 void		ft_move_block_to_free(int type, t_block *block);
 
+/*
+** FREE
+*/
+void		ft_free_block(int type, t_block *block);
+void		ft_defragmentation(int type);
 
 /*
 ** BLOCKS
 */
-size_t		ft_header_size(void);
 t_block		*ft_split_block(t_block *block, int type, size_t size);
 void		ft_delete_block(t_block **start, t_block *block);
 void		ft_insert_block_top(t_block **start, t_block *block);
@@ -95,18 +89,19 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block);
 ** TOOLS
 */
 size_t 		ft_align_size(size_t size, size_t multiple);
-int			ft_block_len(t_block *blocks);
-void		ft_print_debug(int func, t_block *block);
-void		ft_show_block_full(t_block *block);
-void	ft_list_len(t_block *blocks);
-void	ft_print_pool(int type);
+size_t		ft_header_size(void);
 
 /*
 ** STATS
 */
-void	ft_stat_malloc(int i);
-void	ft_stat_free(void);
-void	ft_stat_defrag(void);
+void		ft_stat_malloc(int i);
+void		ft_stat_free(void);
+void		ft_stat_defrag(void);
+
+/*
+** LOGS
+*/
+void		ft_log(int f, t_block *block);
 
 /*
 ** DISPLAY
@@ -126,6 +121,6 @@ void		ft_putendl_2(char const *s1, char const *s2);
 void		ft_putaddr(unsigned long long p);
 void		ft_putaddr_fd(int fd, unsigned long long p);
 void		ft_putaddr_endl(unsigned long long p);
-void	ft_print_memory(const void *addr, size_t size);
+void		ft_print_memory(const void *addr, size_t size);
 
 #endif
