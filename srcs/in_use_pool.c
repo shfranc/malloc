@@ -21,20 +21,11 @@ int 				ft_find_used_block(void *ptr, t_block **block)
 
 	i = 0;
 	if ((*block = ft_search_heap(g_heap[LARGE].in_use, ptr, &i)))
-	{
-		STAT ? ft_stat_free() : 0;
 		return (LARGE);
-	}
 	else if ((*block = ft_search_heap(g_heap[SMALL].in_use, ptr, &i)))
-	{
-		STAT ? ft_stat_free() : 0;			
 		return (SMALL);
-	}
 	else if ((*block = ft_search_heap(g_heap[TINY].in_use, ptr, &i)))
-	{
-		STAT ? ft_stat_free() : 0;		
 		return (TINY);
-	}
 	return (-1);
 }
 

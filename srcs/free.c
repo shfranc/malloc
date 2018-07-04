@@ -9,6 +9,8 @@ static void	ft_munmap_large(t_block *block)
 void		ft_free_block(int type, t_block *block)
 {
 	pthread_mutex_lock(&g_mutex);
+	STAT ? ft_stat_free() : 0;
+	LOG ? ft_log(FREE, block) : 0;
 	if (type == TINY || type == SMALL)			
 	{
 		ft_move_block_to_free(type, block);
@@ -32,7 +34,6 @@ void		free(void *ptr)
 		return ;
 	pthread_mutex_lock(&g_mutex);
 	type = ft_find_used_block(ptr, &block);
-	LOG ? ft_log(FREE, block) : 0;
 	pthread_mutex_unlock(&g_mutex);
 	if (type > -1)
 		ft_free_block(type, block);
