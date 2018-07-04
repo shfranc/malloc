@@ -6,16 +6,20 @@
 # include <sys/resource.h>
 # include <pthread.h>
 # include <fcntl.h>
+# include <stdlib.h>
 
 # define NB_BLOCKS		100
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
-# define STAT			0
-# define LOG			0
+# define GETENV			0b1
+# define STAT			0b10
+# define LOG			0b100
 
 # define STAT_FILE		"metrics"
 # define LOG_FILE		"logs"
+
+# define STAT_ENV		"MALLOC_STAT"
 
 typedef struct 		s_block
 {
@@ -28,6 +32,7 @@ typedef struct s_heap
 {
 	t_block				*in_use;
 	t_block				*free;
+	int					mode;
 }						t_heap;
 
 t_heap					g_heap[2];
@@ -94,6 +99,7 @@ size_t		ft_header_size(void);
 /*
 ** STATS
 */
+int			ft_mode_stat(void);
 void		ft_stat_malloc(int i);
 void		ft_stat_free(void);
 void		ft_stat_defrag(void);

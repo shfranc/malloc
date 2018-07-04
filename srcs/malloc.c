@@ -13,7 +13,7 @@ t_block		*ft_alloc_large(size_t size)
 	block->prev = NULL;
 	block->next = NULL;
 	ft_insert_block_top(&g_heap[LARGE].in_use, block);
-	STAT ? ft_stat_malloc(1) : 0;
+	ft_mode_stat() ? ft_stat_malloc(1) : 0;
 	return (block);
 }
 
@@ -33,7 +33,6 @@ void	*malloc(size_t size)
 	t_block			*block;
 
 	pthread_mutex_lock(&g_mutex);
-	ft_putendl("louis");
 	size = ft_align_size(size, 16);
 	type = ft_choose_pool(size);
 	if (type == TINY || type == SMALL)
