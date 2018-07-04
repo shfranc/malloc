@@ -25,8 +25,8 @@ static void	ft_print_log_line(int fd, char *s, t_block *block)
 void	ft_log(int f, t_block *block)
 {
 	int	fd;
-	
-	fd = open(LOG_FILE, O_WRONLY | O_APPEND | O_CREAT, S_IWUSR | S_IRGRP | S_IROTH);
+
+	fd = open(LOG_FILE, O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return ;
 	if (f == REALLOC)

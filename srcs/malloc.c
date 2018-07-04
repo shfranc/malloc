@@ -13,6 +13,7 @@ t_block		*ft_alloc_large(size_t size)
 	block->prev = NULL;
 	block->next = NULL;
 	ft_insert_block_top(&g_heap[LARGE].in_use, block);
+	STAT ? ft_stat_malloc(1) : 0;
 	return (block);
 }
 
