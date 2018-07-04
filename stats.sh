@@ -1,31 +1,31 @@
 #!/bin/bash
 
 function nb_malloc () {
-	NB_MALLOC=$(cat stats | grep malloc | wc -l)
+	NB_MALLOC=$(cat $FILE | grep malloc | wc -l)
 }
 
 function nb_free () {
-	NB_FREE=$(cat stats | grep free | wc -l)
+	NB_FREE=$(cat $FILE | grep free | wc -l)
 }
 
 function nb_defrag () {
-	NB_DEFRAG=$(cat stats | grep defrag | wc -l)
+	NB_DEFRAG=$(cat $FILE | grep defrag | wc -l)
 }
 
 function nb_first_block () {
-	cat stats | grep malloc > tmp
+	cat $FILE | grep malloc > tmp
 	NB_POS_BLOCK=$(fgrep -o 1 tmp | wc -l)
 	rm  -f tmp
 }
 
 function nb_second_block () {
-	cat stats | grep malloc > tmp
+	cat $FILE | grep malloc > tmp
 	NB_POS_BLOCK=$(fgrep -o 2 tmp | wc -l)
 	rm  -f tmp
 }
 
 function nb_third_block () {
-	cat stats | grep malloc > tmp
+	cat $FILE | grep malloc > tmp
 	NB_POS_BLOCK=$(fgrep -o 3 tmp | wc -l)
 	rm  -f tmp
 }
@@ -39,6 +39,7 @@ function blocks_merged () {
 }
 
 function main () {
+	FILE=$1
 	echo "--- MALLOC ---"
 	nb_malloc
 	printf "%s\n" "Number of malloc: $NB_MALLOC"

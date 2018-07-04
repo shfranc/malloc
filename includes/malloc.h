@@ -5,50 +5,49 @@
 # include <sys/mman.h>
 # include <sys/resource.h>
 # include <pthread.h>
-
-# define RED		"\033[01;31m"
-# define GREEN		"\033[01;32m"
-# define YELLOW		"\033[01;33m"
-# define BLUE		"\033[01;34m"
-# define PINK		"\033[01;35m"
-# define CYAN		"\033[01;36m"
-# define WHITE		"\033[01;37m"
-# define RESET		"\033[00m"
+# include <fcntl.h>
 
 # define NB_BLOCKS		100
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
-# define STAT			0
+# define STAT			1
 # define LOG			1
-# define MALLOC			1
-# define FREE			2
-# define REALLOC		3
-# define CALLOC			4
+
+# define STAT_FILE		"metrics"
+# define LOG_FILE		"logs"
+
 
 
 typedef struct 		s_block
 {
-	size_t			size;
-	struct s_block	*prev;
-	struct s_block	*next;
-}					t_block;
+	size_t				size;
+	struct s_block		*prev;
+	struct s_block		*next;
+}						t_block;
 
 typedef struct s_heap
 {
-	t_block		*in_use;
-	t_block		*free;
-}				t_heap;
+	t_block				*in_use;
+	t_block				*free;
+}						t_heap;
 
-t_heap		g_heap[2];
-extern pthread_mutex_t g_mutex;
-int  g_debug;
+t_heap					g_heap[2];
+extern pthread_mutex_t 	g_mutex;
 
 enum e_heap
 {
 	TINY,
 	SMALL,
 	LARGE
+};
+
+enum e_lib
+{
+	MALLOC,
+	FREE,
+	REALLOC,
+	CALLOC
 };
 
 void		*malloc(size_t size);
@@ -68,22 +67,16 @@ t_block		*ft_request_memory(void *last, size_t size);
 void		ft_move_block_to_use(int type, t_block *block);
 
 /*
-** FREE
-*/
-void	ft_free_block(int type, t_block *block);
-
-/*
-** DEFRAGMENTATION
-*/
-void		ft_defragmentation(int type);
-void		ft_fusion_blocks(t_block *block1, t_block *block2);
-
-/*
 ** IN USE POOL
 */
 int 		ft_find_used_block(void *ptr, t_block **block);
 void		ft_move_block_to_free(int type, t_block *block);
 
+/*
+** FREE
+*/
+void		ft_free_block(int type, t_block *block);
+void		ft_defragmentation(int type);
 
 /*
 ** BLOCKS
@@ -103,14 +96,14 @@ size_t		ft_header_size(void);
 /*
 ** STATS
 */
-void	ft_stat_malloc(int i);
-void	ft_stat_free(void);
-void	ft_stat_defrag(void);
+void		ft_stat_malloc(int i);
+void		ft_stat_free(void);
+void		ft_stat_defrag(void);
 
 /*
 ** LOGS
 */
-void	ft_log(int f, t_block *block);
+void		ft_log(int f, t_block *block);
 
 /*
 ** DISPLAY
@@ -130,6 +123,6 @@ void		ft_putendl_2(char const *s1, char const *s2);
 void		ft_putaddr(unsigned long long p);
 void		ft_putaddr_fd(int fd, unsigned long long p);
 void		ft_putaddr_endl(unsigned long long p);
-void	ft_print_memory(const void *addr, size_t size);
+void		ft_print_memory(const void *addr, size_t size);
 
 #endif
