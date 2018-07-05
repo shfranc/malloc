@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_memory.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/05 16:35:11 by sfranc            #+#    #+#             */
+/*   Updated: 2018/07/05 18:03:14 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 static void		ft_dump_hexa(const void *addr)
 {
-	char	hex[16] = "0123456789abcdef";
-	int		temp;
+	const char	hex[16] = "0123456789abcdef";
+	int			temp;
 
 	temp = *(char*)addr >> 4 & 0x0F;
 	write(1, &hex[temp], 1);
@@ -30,17 +42,15 @@ static void		ft_print_last_line(int i, char s[16])
 		write(1, s, i % 16);
 		write(1, "\n", 1);
 	}
-
-	write(1, "\n", 1);	
-
+	write(1, "\n", 1);
 }
 
 void			ft_print_memory(const void *addr, size_t size)
 {
-	char	s[16] = "0000000000000000";
+	char	s[16];
 	size_t	i;
-	size_t	a;
 
+	ft_bzero(s, 16);
 	i = 0;
 	while (i < size)
 	{
@@ -55,9 +65,7 @@ void			ft_print_memory(const void *addr, size_t size)
 		{
 			write(1, s, 16);
 			write(1, "\n", 1);
-			a = 0;
-			while (a < 16)
-				s[a++] = 0;
+			ft_bzero(s, 16);
 		}
 		addr++;
 	}

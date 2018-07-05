@@ -97,6 +97,8 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block);
 */
 size_t 		ft_align_size(size_t size, size_t multiple);
 size_t		ft_header_size(void);
+void		ft_bzero(void *s, size_t n);
+void		*ft_memset(void *b, int c, size_t len);
 
 /*
 ** STATS
