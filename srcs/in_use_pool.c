@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   in_use_pool.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/05 16:35:11 by sfranc            #+#    #+#             */
+/*   Updated: 2018/07/05 18:06:14 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 static t_block		*ft_search_heap(t_block *blocks, void *ptr, int *i)
 {
-	t_block 	*block;
-	
+	t_block		*block;
+
 	block = blocks;
 	while (block)
 	{
@@ -15,7 +27,7 @@ static t_block		*ft_search_heap(t_block *blocks, void *ptr, int *i)
 	return (NULL);
 }
 
-int 				ft_find_used_block(void *ptr, t_block **block)
+int					ft_find_used_block(void *ptr, t_block **block)
 {
 	int		i;
 
