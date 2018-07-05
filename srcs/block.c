@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   block.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/05 17:02:33 by sfranc            #+#    #+#             */
+/*   Updated: 2018/07/05 17:05:46 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 static int		ft_get_min_size(int type)
@@ -53,7 +65,7 @@ void			ft_insert_block_top(t_block **start, t_block *block)
 	}
 }
 
-int			ft_insert_block_addr(t_block **start, t_block *new_block)
+int				ft_insert_block_addr(t_block **start, t_block *new_block)
 {
 	t_block		*block;
 
@@ -62,22 +74,20 @@ int			ft_insert_block_addr(t_block **start, t_block *new_block)
 		ft_insert_block_top(start, new_block);
 		return (1);
 	}
-	else
+	block = *start;
+	while (block)
 	{
-		block = *start;
-		while (block)
+		if ((char*)new_block == ((char*)block + ft_header_size()\
+			+ block->size))
 		{
-			if ((char*)new_block == ((char*)block + ft_header_size() + block->size))
-			{
-				new_block->next = block->next;
-				new_block->prev = block;
-				if (block->next)
-					block->next->prev = new_block;
-				block->next = new_block;
-				return (1);
-			}
-			block = block->next;
+			new_block->next = block->next;
+			new_block->prev = block;
+			if (block->next)
+				block->next->prev = new_block;
+			block->next = new_block;
+			return (1);
 		}
+		block = block->next;
 	}
 	return (0);
 }
