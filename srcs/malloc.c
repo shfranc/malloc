@@ -2,21 +2,6 @@
 
 pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-t_block		*ft_alloc_large(size_t size)
-{
-	t_block 	*block;
-	size_t		pages;
-
-	pages = ft_align_size(size + ft_header_size(), getpagesize());
-	block = ft_request_memory(NULL, pages);
-	block->size = pages - ft_header_size();
-	block->prev = NULL;
-	block->next = NULL;
-	ft_insert_block_top(&g_heap[LARGE].in_use, block);
-	ft_mode_stat() ? ft_stat_malloc(1) : 0;
-	return (block);
-}
-
 static int		ft_choose_pool(size_t size)
 {
 	if (size <= TINY_BLOCK)
@@ -27,7 +12,23 @@ static int		ft_choose_pool(size_t size)
 		return (LARGE);
 }
 
-void	*malloc(size_t size)
+static t_block	*ft_alloc_large(size_t size)
+{
+	t_block 	*block;
+	size_t		pages;
+
+	pages = ft_align_size(size + ft_header_size(),\
+		getpagesize());
+	block = ft_request_memory(NULL, pages);
+	block->size = pages - ft_header_size();
+	block->prev = NULL;
+	block->next = NULL;
+	ft_insert_block_top(&g_heap[LARGE].in_use, block);
+	ft_mode_stat() ? ft_stat_malloc(1) : 0;
+	return (block);
+}
+
+void			*malloc(size_t size)
 {
 	unsigned int	type;
 	t_block			*block;
