@@ -9,7 +9,7 @@
 # include <stdlib.h>
 
 # define NB_BLOCKS		100
-# define TINY_BLOCK		512
+# define TINY_BLOCK		256
 # define SMALL_BLOCK	4096
 
 # define GETENV_STAT	0b1

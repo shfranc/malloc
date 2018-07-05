@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/05 16:35:11 by sfranc            #+#    #+#             */
+/*   Updated: 2018/07/05 17:55:05 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 static void		ft_munmap_large(t_block *block)
@@ -11,7 +23,7 @@ void			ft_free_block(int type, t_block *block)
 	pthread_mutex_lock(&g_mutex);
 	ft_mode_stat() ? ft_stat_free() : 0;
 	ft_mode_log() ? ft_log(FREE, block) : 0;
-	if (type == TINY || type == SMALL)			
+	if (type == TINY || type == SMALL)
 	{
 		ft_move_block_to_free(type, block);
 		ft_defragmentation(type);
