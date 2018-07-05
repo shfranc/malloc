@@ -1,5 +1,27 @@
 #include "malloc.h"
 
+int		ft_mode_log(void)
+{
+	char	*log;
+
+	if (g_heap[TINY].mode & GETENV_LOG)
+	{
+		return ((g_heap[TINY].mode & LOG) ? 1 : 0);
+	}
+	if ((log = getenv(LOG_ENV)) != NULL)
+	{
+		g_heap[TINY].mode |= GETENV_LOG;
+		if (log[0] == '1')
+		{
+			g_heap[TINY].mode |= LOG;
+			return (1);
+		}
+	}
+	else
+		g_heap[TINY].mode |= GETENV_LOG;
+	return (0);
+}
+
 static void	ft_print_log_line(int fd, char *s, t_block *block)
 {
 	ft_putstr_fd(fd, s);

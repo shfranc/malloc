@@ -38,7 +38,7 @@ void			*realloc(void *ptr, size_t size)
 	t_block		*block;
 	int			type;
 
-	LOG ? ft_log(REALLOC, NULL) : 0;
+	ft_mode_log() ? ft_log(REALLOC, NULL) : 0;
 	if (!ptr)
 		return (malloc(size));
 	pthread_mutex_lock(&g_mutex);

@@ -45,7 +45,7 @@ void	*malloc(size_t size)
 	}
 	else
 		block = ft_alloc_large(size);
-	LOG ? ft_log(MALLOC, block) : 0;
+	ft_mode_log() ? ft_log(MALLOC, block) : 0;
 	pthread_mutex_unlock(&g_mutex);
 	return ((void*)((char*)block + ft_header_size()));
 }

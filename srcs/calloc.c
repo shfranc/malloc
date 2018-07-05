@@ -26,6 +26,6 @@ void	*calloc(size_t count, size_t size)
 	{
 		ft_bzero(data, count * size);
 	}
-	LOG ? ft_log(CALLOC, NULL) : 0;
+	ft_mode_log() ? ft_log(CALLOC, NULL) : 0;
 	return (data);
 }

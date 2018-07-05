@@ -12,14 +12,16 @@
 # define TINY_BLOCK		512
 # define SMALL_BLOCK	4096
 
-# define GETENV			0b1
-# define STAT			0b10
-# define LOG			0b100
+# define GETENV_STAT	0b1
+# define GETENV_LOG		0b10
+# define STAT			0b100
+# define LOG			0b1000
 
 # define STAT_FILE		"metrics"
 # define LOG_FILE		"logs"
 
 # define STAT_ENV		"MALLOC_STAT"
+# define LOG_ENV		"MALLOC_LOG"
 
 typedef struct 		s_block
 {
@@ -107,6 +109,7 @@ void		ft_stat_defrag(void);
 /*
 ** LOGS
 */
+int			ft_mode_log(void);
 void		ft_log(int f, t_block *block);
 
 /*
