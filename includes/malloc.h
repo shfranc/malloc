@@ -118,8 +118,6 @@ void		ft_log(int f, t_block *block);
 void		ft_show_heap(t_block *blocks);
 void		ft_putnbr(int n);
 void		ft_putnbr_fd(int fd, int n);
-void		ft_putnbr_endl(int n);
-void		ft_putullnbr_endl(unsigned long long int n);
 void		ft_putnbr_str(char *str, int n);
 void		ft_putchar(char c);
 void		ft_putchar_fd(int fd, char c);
