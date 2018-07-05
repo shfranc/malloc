@@ -1,16 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/05 16:35:11 by sfranc            #+#    #+#             */
+/*   Updated: 2018/07/05 18:07:36 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
-
-static void	*ft_memset(void *b, int c, size_t len)
-{
-	char *temp;
-
-	temp = (char*)b;
-	while (len-- > 0)
-	{
-		*temp++ = (unsigned char)c;
-	}
-	return (b);
-}
 
 int		main(void)
 {

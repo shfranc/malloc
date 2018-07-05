@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   malloc.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/05 18:08:00 by sfranc            #+#    #+#             */
+/*   Updated: 2018/07/05 18:08:05 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
 pthread_mutex_t g_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -14,7 +26,7 @@ static int		ft_choose_pool(size_t size)
 
 static t_block	*ft_alloc_large(size_t size)
 {
-	t_block 	*block;
+	t_block		*block;
 	size_t		pages;
 
 	pages = ft_align_size(size + ft_header_size(),\

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   logs.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/05 16:35:11 by sfranc            #+#    #+#             */
+/*   Updated: 2018/07/05 18:07:12 by sfranc           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
 
-int		ft_mode_log(void)
+int			ft_mode_log(void)
 {
 	char	*log;
 
@@ -29,7 +41,7 @@ static void	ft_print_log_line(int fd, char *s, t_block *block)
 	ft_putaddr_fd(fd, (unsigned long long)block);
 	if (block)
 	{
-		ft_putstr_fd(fd, " ** ");		
+		ft_putstr_fd(fd, " ** ");
 		ft_putaddr_fd(fd, (unsigned long long)((char*)block\
 			+ ft_header_size()));
 		ft_putstr_fd(fd, " - ");
@@ -46,7 +58,7 @@ static void	ft_print_log_line(int fd, char *s, t_block *block)
 	ft_putchar_fd(fd, '\n');
 }
 
-void	ft_log(int f, t_block *block)
+void		ft_log(int f, t_block *block)
 {
 	int	fd;
 
@@ -62,5 +74,5 @@ void	ft_log(int f, t_block *block)
 		ft_print_log_line(fd, "malloc", block);
 	else if (f == FREE)
 		ft_print_log_line(fd, "free", block);
-	close(fd);	
+	close(fd);
 }
