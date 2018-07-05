@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-static void	*ft_memset(void *b, int c, size_t len)
+static void		*ft_memset(void *b, int c, size_t len)
 {
 	char *temp;
 
@@ -12,20 +12,18 @@ static void	*ft_memset(void *b, int c, size_t len)
 	return (b);
 }
 
-static void	ft_bzero(void *s, size_t n)
+static void		ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, 0, n);
 }
 
-void	*calloc(size_t count, size_t size)
+void			*calloc(size_t count, size_t size)
 {
 	void	*data;
 
 	data = malloc(count * size);
 	if (data)
-	{
 		ft_bzero(data, count * size);
-	}
 	ft_mode_log() ? ft_log(CALLOC, NULL) : 0;
 	return (data);
 }
