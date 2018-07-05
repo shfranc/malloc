@@ -1,6 +1,28 @@
 #include "malloc.h"
 #include <stdio.h>
 
+int		ft_mode_stat(void)
+{
+	char	*stat;
+
+	if (g_heap[TINY].mode & GETENV_STAT)
+	{
+		return ((g_heap[TINY].mode & STAT) ? 1 : 0);
+	}
+	if ((stat = getenv(STAT_ENV)) != NULL)
+	{
+		g_heap[TINY].mode |= GETENV_STAT;
+		if (stat[0] == '1')
+		{
+			g_heap[TINY].mode |= STAT;
+			return (1);
+		}
+	}
+	else
+		g_heap[TINY].mode |= GETENV_STAT;
+	return (0);
+}
+
 void	ft_stat_malloc(int i)
 {
 	int	fd;

@@ -18,7 +18,7 @@ void	ft_defragmentation(int type)
 		if (block->next && (char*)block->next == ((char*)block + ft_header_size() + block->size))
 		{
 			ft_fusion_blocks(block, block->next);
-			STAT ? ft_stat_defrag() : 0;
+			ft_mode_stat() ? ft_stat_defrag() : 0;
 		}
 		else
 			block = block->next;
