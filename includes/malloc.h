@@ -17,7 +17,7 @@
 # define STAT			0b100
 # define LOG			0b1000
 
-# define STAT_FILE		"metrics"
+# define STAT_FILE		"data"
 # define LOG_FILE		"logs"
 
 # define STAT_ENV		"MALLOC_STAT"

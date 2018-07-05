@@ -10,7 +10,7 @@ test4
 test5
 buf
 logs
-metrics
+data
 objs/*.o
 srcs/*.swp
 includes/*.swp

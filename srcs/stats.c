@@ -32,7 +32,7 @@ void	ft_stat_malloc(int i)
 		return ;
 	ft_putstr_fd(fd, "malloc ");
 	ft_putnbr_fd(fd, i);
-	ft_putstr_fd(fd, "\n");
+	ft_putstr_fd(fd, "eol\n");
 	close(fd);
 }
 
