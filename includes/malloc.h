@@ -115,7 +115,6 @@ void		ft_log(int f, t_block *block);
 /*
 ** DISPLAY
 */
-void		ft_show_heap(t_block *blocks);
 void		ft_print_memory(const void *addr, size_t size);
 void		ft_putnbr(int n);
 void		ft_putnbr_fd(int fd, int n);
