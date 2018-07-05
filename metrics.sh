@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function usage () {
-	echo "usage: ./metrics data"
+	echo "usage: ./metrics [--details] data"
 }
 
 function nb_malloc () {
@@ -28,6 +28,18 @@ function nb_third_block () {
 	NB_POS_BLOCK=$(cat $FILE | grep "malloc 3eol" | wc -l)
 }
 
+function nb_fourth_block () {
+	NB_POS_BLOCK=$(cat $FILE | grep "malloc 4eol" | wc -l)
+}
+
+function nb_fifth_block () {
+	NB_POS_BLOCK=$(cat $FILE | grep "malloc 5eol" | wc -l)
+}
+
+function nb_sixth_block () {
+	NB_POS_BLOCK=$(cat $FILE | grep "malloc 6eol" | wc -l)
+}
+
 function ratio_block () {
 	bc <<< $(($NB_POS_BLOCK * 100 / $NB_MALLOC))
 }
@@ -41,9 +53,20 @@ function main () {
 	then
 		usage
 		exit 1
+	elif [ "$1" == "--details" ]; then
+		OPTION=1
+		FILE=$2
+	else
+		FILE=$1
+		OPTION=0
 	fi
 
-	FILE=$1
+	if [ -z "$FILE" ]
+	then
+		usage
+		exit 1
+	fi
+
 	echo "--- MALLOC ---"
 	nb_malloc
 	printf "%s\n" "Amount of malloc: $NB_MALLOC"
@@ -60,6 +83,20 @@ function main () {
 	printf "\t%s\t%s\t" "- 3rd block chosen: $NB_POS_BLOCK" "Ratio (%): "
 	ratio_block
 
+	if [ $OPTION -eq 1 ]
+	then
+		nb_fourth_block
+		printf "\t%s\t%s\t" "- 4th block chosen: $NB_POS_BLOCK" "Ratio (%): "
+		ratio_block
+
+		nb_fifth_block
+		printf "\t%s\t%s\t" "- 5th block chosen: $NB_POS_BLOCK" "Ratio (%): "
+		ratio_block
+
+		nb_sixth_block
+		printf "\t%s\t%s\t" "- 6th block chosen: $NB_POS_BLOCK" "Ratio (%): "
+		ratio_block
+	fi
 	echo "--- FREE ---"
 	nb_free
 	printf "%s\n" "Amount of free: $NB_FREE"
