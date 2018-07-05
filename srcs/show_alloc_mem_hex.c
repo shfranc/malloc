@@ -7,7 +7,8 @@ void			ft_show_block_hex(t_block *block)
 	ft_putaddr((unsigned long long)((char*)block + ft_header_size() + block->size));
 	ft_putstr(" : ");
 	ft_putnbr(block->size);
-	ft_putendl(" octets");
+	ft_putstr(" octets");
+	ft_putchar('\n');
 	ft_print_memory((void*)block, block->size);
 }
 

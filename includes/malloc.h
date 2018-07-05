@@ -116,6 +116,7 @@ void		ft_log(int f, t_block *block);
 ** DISPLAY
 */
 void		ft_show_heap(t_block *blocks);
+void		ft_print_memory(const void *addr, size_t size);
 void		ft_putnbr(int n);
 void		ft_putnbr_fd(int fd, int n);
 void		ft_putnbr_str(char *str, int n);
@@ -123,11 +124,8 @@ void		ft_putchar(char c);
 void		ft_putchar_fd(int fd, char c);
 void		ft_putstr(char const *s);
 void		ft_putstr_fd(int fd, char const *s);
-void		ft_putendl(char const *s);
-void		ft_putendl_2(char const *s1, char const *s2);
 void		ft_putaddr(unsigned long long p);
 void		ft_putaddr_fd(int fd, unsigned long long p);
 void		ft_putaddr_endl(unsigned long long p);
-void		ft_print_memory(const void *addr, size_t size);
 
 #endif

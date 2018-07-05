@@ -33,6 +33,7 @@ void	*malloc(size_t size)
 	t_block			*block;
 
 	pthread_mutex_lock(&g_mutex);
+	ft_putstr(".");
 	size = ft_align_size(size, 16);
 	type = ft_choose_pool(size);
 	if (type == TINY || type == SMALL)
