@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-void			ft_putaddr(unsigned long long ptr)
+void	ft_putaddr(unsigned long long ptr)
 {	
 	char	hex[16] = "0123456789abcdef";
 	char	s[16];
@@ -19,7 +19,7 @@ void			ft_putaddr(unsigned long long ptr)
 		ft_putchar(s[i]);
 }
 
-void			ft_putaddr_fd(int fd, unsigned long long ptr)
+void	ft_putaddr_fd(int fd, unsigned long long ptr)
 {	
 	char	hex[16] = "0123456789abcdef";
 	char	s[16];
@@ -38,7 +38,7 @@ void			ft_putaddr_fd(int fd, unsigned long long ptr)
 		ft_putchar_fd(fd, s[i]);
 }
 
-void			ft_putaddr_endl(unsigned long long ptr)
+void	ft_putaddr_endl(unsigned long long ptr)
 {	
 	char	hex[16] = "0123456789abcdef";
 	char	s[16];
