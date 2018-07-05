@@ -8,5 +8,6 @@ int main()
 	{
 		i++;
 	}
+	show_alloc_mem_hex();
 	return (0);
 }

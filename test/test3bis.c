@@ -2,7 +2,7 @@
 
 void print(char *s)
 {
-		write(1, s, strlen(s));
+	write(1, s, strlen(s));
 }
 
 int main()

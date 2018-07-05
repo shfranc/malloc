@@ -1,5 +1,4 @@
 #include "malloc.h"
-#include <stdio.h>
 
 int		ft_mode_stat(void)
 {
@@ -27,12 +26,13 @@ void	ft_stat_malloc(int i)
 {
 	int	fd;
 
-	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT,\
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return ;
 	ft_putstr_fd(fd, "malloc ");
 	ft_putnbr_fd(fd, i);
-	ft_putstr_fd(fd, "\n");
+	ft_putstr_fd(fd, "eol\n");
 	close(fd);
 }
 
@@ -40,7 +40,8 @@ void	ft_stat_free(void)
 {
 	int	fd;
 
-	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT,\
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return ;
 	ft_putstr_fd(fd, "free\n");
@@ -51,7 +52,8 @@ void	ft_stat_defrag(void)
 {
 	int	fd;
 
-	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	fd = open(STAT_FILE, O_RDWR | O_APPEND | O_CREAT,\
+		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return ;
 	ft_putstr_fd(fd, "defrag\n");

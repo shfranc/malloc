@@ -1,17 +1,19 @@
 #include "malloc.h"
 
-void			ft_show_block_hex(t_block *block)
+static void		ft_show_block_hex(t_block *block)
 {	
 	ft_putaddr((unsigned long long)((char*)block + ft_header_size()));
 	ft_putstr(" - ");
-	ft_putaddr((unsigned long long)((char*)block + ft_header_size() + block->size));
+	ft_putaddr((unsigned long long)((char*)block + ft_header_size()\
+		+ block->size));
 	ft_putstr(" : ");
 	ft_putnbr(block->size);
-	ft_putendl(" octets");
+	ft_putstr(" octets");
+	ft_putchar('\n');
 	ft_print_memory((void*)block, block->size);
 }
 
-void			ft_show_heap_hex(t_block *blocks)
+static void		ft_show_heap_hex(t_block *blocks)
 {
 	t_block		*block;
 	t_block		*last;

@@ -1,33 +1,18 @@
 #include "malloc.h"
 
-void			ft_show_block(t_block *block)
+static void		ft_show_block(t_block *block)
 {	
 	ft_putaddr((unsigned long long)((char*)block + ft_header_size()));
 	ft_putstr(" - ");
-	ft_putaddr((unsigned long long)((char*)block + ft_header_size() + block->size));
+	ft_putaddr((unsigned long long)((char*)block + ft_header_size()\
+		+ block->size));
 	ft_putstr(" : ");
 	ft_putnbr(block->size);
-	ft_putendl(" octets");
+	ft_putstr(" octets");
+	ft_putchar('\n');
 }
 
-void		ft_show_block_full(t_block *block)
-{
-	ft_putaddr((unsigned long long)block);
-	ft_putstr(" ** ");		
-	ft_putaddr((unsigned long long)((char*)block + ft_header_size()));
-	ft_putstr(" - ");
-	ft_putaddr((unsigned long long)((char*)block + ft_header_size() + block->size));
-	ft_putstr(" : ");
-	ft_putnbr(block->size);
-	ft_putstr(" octets -");
-	ft_putstr(" prev : ");
-	ft_putaddr((unsigned long long)block->prev);
-	ft_putstr(" next : ");
-	ft_putaddr((unsigned long long)block->next);
-	ft_putendl("");
-}
-
-void			ft_show_heap(t_block *blocks)
+static void		ft_show_heap(t_block *blocks)
 {
 	t_block		*block;
 	t_block		*last;

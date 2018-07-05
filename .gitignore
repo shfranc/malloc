@@ -1,5 +1,8 @@
+# LIBS
 libft_malloc.so
 libft_malloc_x86_64_Darwin.so
+
+# BINS
 main
 test0
 test1
@@ -8,10 +11,17 @@ test3
 test3bis
 test4
 test5
+test6
+
+# FILES
 buf
 logs
-metrics
+data
+
+# OBJS
 objs/*.o
+
+# SWP
 srcs/*.swp
 includes/*.swp
 .Makefile.swp

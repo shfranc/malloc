@@ -1,12 +1,12 @@
 #include "malloc.h"
 
-static void	ft_munmap_large(t_block *block)
+static void		ft_munmap_large(t_block *block)
 {
 	if ((munmap(block, block->size + ft_header_size())) != 0)
 		ft_putstr_fd(2, "munmap error\n");
 }
 
-void		ft_free_block(int type, t_block *block)
+void			ft_free_block(int type, t_block *block)
 {
 	pthread_mutex_lock(&g_mutex);
 	ft_mode_stat() ? ft_stat_free() : 0;
@@ -24,7 +24,7 @@ void		ft_free_block(int type, t_block *block)
 	pthread_mutex_unlock(&g_mutex);
 }
 
-void		free(void *ptr)
+void			free(void *ptr)
 {
 	t_block		*block;
 	int			type;

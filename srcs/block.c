@@ -5,7 +5,7 @@ static int		ft_get_min_size(int type)
 	return (type == TINY ? TINY_BLOCK : SMALL_BLOCK);
 }
 
-t_block		*ft_split_block(t_block *block, int type, size_t size)
+t_block			*ft_split_block(t_block *block, int type, size_t size)
 {
 	t_block		*new_block;
 	int			min_size;
@@ -26,7 +26,7 @@ t_block		*ft_split_block(t_block *block, int type, size_t size)
 	return (block->next);
 }
 
-void		ft_delete_block(t_block **start, t_block *block)
+void			ft_delete_block(t_block **start, t_block *block)
 {
 	if (block->next)
 		block->next->prev = block->prev;
@@ -36,7 +36,7 @@ void		ft_delete_block(t_block **start, t_block *block)
 		*start = block->next;
 }
 
-void		ft_insert_block_top(t_block **start, t_block *block)
+void			ft_insert_block_top(t_block **start, t_block *block)
 {
 	if (!*start)
 	{
@@ -53,26 +53,20 @@ void		ft_insert_block_top(t_block **start, t_block *block)
 	}
 }
 
-int		ft_insert_block_addr(t_block **start, t_block *new_block)
+int			ft_insert_block_addr(t_block **start, t_block *new_block)
 {
 	t_block		*block;
-	int i;
 
-	i = 0;
 	if (!*start)
 	{
-		*start = new_block;
-		new_block->next = NULL;
-		new_block->prev = NULL;
+		ft_insert_block_top(start, new_block);
 		return (1);
 	}
 	else
 	{
 		block = *start;
-		i = 0;
 		while (block)
 		{
-			i++;
 			if ((char*)new_block == ((char*)block + ft_header_size() + block->size))
 			{
 				new_block->next = block->next;

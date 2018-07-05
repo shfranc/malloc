@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function usage () {
+	echo "usage: ./metrics data"
+}
+
 function nb_malloc () {
 	NB_MALLOC=$(cat $FILE | grep malloc | wc -l)
 }
@@ -13,21 +17,15 @@ function nb_defrag () {
 }
 
 function nb_first_block () {
-	cat $FILE | grep malloc > tmp
-	NB_POS_BLOCK=$(fgrep -o 1 tmp | wc -l)
-	rm  -f tmp
+	NB_POS_BLOCK=$(cat $FILE | grep "malloc 1eol" | wc -l)
 }
 
 function nb_second_block () {
-	cat $FILE | grep malloc > tmp
-	NB_POS_BLOCK=$(fgrep -o 2 tmp | wc -l)
-	rm  -f tmp
+	NB_POS_BLOCK=$(cat $FILE | grep "malloc 2eol" | wc -l)
 }
 
 function nb_third_block () {
-	cat $FILE | grep malloc > tmp
-	NB_POS_BLOCK=$(fgrep -o 3 tmp | wc -l)
-	rm  -f tmp
+	NB_POS_BLOCK=$(cat $FILE | grep "malloc 3eol" | wc -l)
 }
 
 function ratio_block () {
@@ -39,10 +37,16 @@ function blocks_merged () {
 }
 
 function main () {
+	if [ -z "$1" ]
+	then
+		usage
+		exit 1
+	fi
+
 	FILE=$1
 	echo "--- MALLOC ---"
 	nb_malloc
-	printf "%s\n" "Number of malloc: $NB_MALLOC"
+	printf "%s\n" "Amount of malloc: $NB_MALLOC"
 	
 	nb_first_block
 	printf "\t%s\t%s\t" "- 1st block chosen: $NB_POS_BLOCK" "Ratio (%): "
@@ -58,7 +62,7 @@ function main () {
 
 	echo "--- FREE ---"
 	nb_free
-	printf "%s\n" "Number of free: $NB_FREE"
+	printf "%s\n" "Amount of free: $NB_FREE"
 
 	nb_defrag
 	blocks_merged
