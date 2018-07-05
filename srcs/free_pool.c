@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-t_block		*ft_choose_free_block(int type, size_t size)
+t_block			*ft_choose_free_block(int type, size_t size)
 {
 	t_block		*block;
 	t_block		*last;
@@ -38,7 +38,7 @@ t_block 		*ft_add_free_block(t_block *last, int type, size_t size)
 	}
 }
 
-t_block		*ft_extend_free_pool(void *last, int type, size_t size)
+t_block			*ft_extend_free_pool(void *last, int type, size_t size)
 {
 	t_block 	*block;
 	size_t		pages;
@@ -56,7 +56,7 @@ t_block		*ft_extend_free_pool(void *last, int type, size_t size)
 	return(block);
 }
 
-t_block		*ft_request_memory(void *last, size_t size)
+t_block			*ft_request_memory(void *last, size_t size)
 {
 	t_block *tmp;
 	
@@ -65,7 +65,7 @@ t_block		*ft_request_memory(void *last, size_t size)
 	return (tmp);
 }
 
-void		ft_move_block_to_use(int type, t_block *block)
+void			ft_move_block_to_use(int type, t_block *block)
 {
 	ft_delete_block(&g_heap[type].free, block);
 	ft_insert_block_top(&g_heap[type].in_use, block);
