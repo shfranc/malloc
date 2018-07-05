@@ -6,7 +6,7 @@
 /*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 17:57:15 by sfranc            #+#    #+#             */
-/*   Updated: 2018/07/05 18:12:49 by sfranc           ###   ########.fr       */
+/*   Updated: 2018/07/05 19:05:28 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_block			*ft_choose_free_block(int type, size_t size)
 {
 	t_block		*block;
 	t_block		*last;
-	int 		i;
+	int			i;
 
 	i = 0;
 	block = g_heap[type].free;
@@ -36,7 +36,7 @@ t_block			*ft_choose_free_block(int type, size_t size)
 	return (ft_add_free_block(last, type, size));
 }
 
-t_block 		*ft_add_free_block(t_block *last, int type, size_t size)
+t_block			*ft_add_free_block(t_block *last, int type, size_t size)
 {
 	if (last)
 	{
@@ -52,16 +52,18 @@ t_block 		*ft_add_free_block(t_block *last, int type, size_t size)
 
 t_block			*ft_extend_free_pool(void *last, int type, size_t size)
 {
-	t_block 	*block;
+	t_block		*block;
 	size_t		pages;
 
 	if (type == TINY)
 	{
-		pages = ft_align_size(NB_BLOCKS * (TINY_BLOCK + ft_header_size()), getpagesize());
+		pages = ft_align_size(1 * NB_BLOCKS * (TINY_BLOCK + ft_header_size()),\
+			getpagesize());
 	}
 	else if (type == SMALL)
 	{
-		pages = ft_align_size(NB_BLOCKS * (SMALL_BLOCK + ft_header_size()), getpagesize());		
+		pages = ft_align_size(1 * NB_BLOCKS * (SMALL_BLOCK + ft_header_size()),\
+			getpagesize());
 	}
 	else
 		pages = ft_align_size(size + ft_header_size(), getpagesize());
@@ -69,15 +71,18 @@ t_block			*ft_extend_free_pool(void *last, int type, size_t size)
 	block->size = pages - ft_header_size();
 	block->prev = last;
 	block->next = NULL;
-	return(block);
+	return (block);
 }
 
 t_block			*ft_request_memory(void *last, size_t size)
 {
 	t_block *tmp;
-	
-	if ((tmp = mmap(last, size, PROT_READ | PROT_WRITE | PROT_EXEC, MAP_ANON | MAP_PRIVATE, -1, 0)) == MAP_FAILED)
+
+	if ((tmp = mmap(last, size, PROT_READ | PROT_WRITE | PROT_EXEC,\
+		MAP_ANON | MAP_PRIVATE, -1, 0)) == MAP_FAILED)
+	{
 		return (NULL);
+	}
 	return (tmp);
 }
 
