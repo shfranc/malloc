@@ -20,7 +20,7 @@ t_block		*ft_choose_free_block(int type, size_t size)
 		}
 		block = block->next;
 	}
-	ft_mode_stat() ? ft_stat_malloc(i) : 0;
+	ft_mode_stat() ? ft_stat_malloc(++i) : 0;
 	return (ft_add_free_block(last, type, size));
 }
 

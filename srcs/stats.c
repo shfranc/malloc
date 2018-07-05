@@ -7,20 +7,20 @@ int		ft_mode_stat(void)
 
 	if (g_heap[TINY].mode & GETENV)
 	{
-		ft_putnbr_str("getenv", g_heap[TINY].mode);
 		return ((g_heap[TINY].mode & STAT) ? 1 : 0);
 	}
 	if ((stat = getenv(STAT_ENV)) != NULL)
 	{
+		g_heap[TINY].mode |= GETENV;
 		if (stat[0] == '1')
 		{
-			g_heap[TINY].mode |= (GETENV | STAT);
-			ft_putnbr_str("getenv", g_heap[TINY].mode);	
+			g_heap[TINY].mode |= STAT;
+			return (1);
 		}
-		return (1);
 	}
 	else
-		return (0);
+		g_heap[TINY].mode |= GETENV;
+	return (0);
 }
 
 void	ft_stat_malloc(int i)
