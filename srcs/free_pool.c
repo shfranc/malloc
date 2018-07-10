@@ -6,7 +6,7 @@
 /*   By: sfranc <sfranc@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/05 17:57:15 by sfranc            #+#    #+#             */
-/*   Updated: 2018/07/05 19:05:28 by sfranc           ###   ########.fr       */
+/*   Updated: 2018/07/10 10:45:16 by sfranc           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ t_block			*ft_extend_free_pool(void *last, int type, size_t size)
 
 	if (type == TINY)
 	{
-		pages = ft_align_size(1 * NB_BLOCKS * (TINY_BLOCK + ft_header_size()),\
+		pages = ft_align_size((TINY_BLOCK + ft_header_size() * NB_BLOCKS),\
 			getpagesize());
 	}
 	else if (type == SMALL)
 	{
-		pages = ft_align_size(1 * NB_BLOCKS * (SMALL_BLOCK + ft_header_size()),\
+		pages = ft_align_size((SMALL_BLOCK + ft_header_size() * NB_BLOCKS),\
 			getpagesize());
 	}
 	else
